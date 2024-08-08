@@ -1,0 +1,148 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* variaveis */
+  /* master */
+  --form-lcbank-master-width: 100%;
+  --form-lcbank-master-font: 'Poppins', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  --form-lcbank-master-padding: 20px;
+  --form-lcbank-master-round: 8px;
+  --form-lcbank-master-border: 1px solid #d9d9d9;
+  --form-lcbank-master-background-color: #fff;
+
+  /* errors */
+  --form-lcbank-error-color: red;
+  --form-lcbank-error-size: 14px;
+  --form-lcbank-error-margin: 5px 0 0;
+
+  /* field box */
+  --form-lcbank-field-margin: 20px 0;
+  
+  /* input */
+  --form-lcbank-input-width: 100%;
+  --form-lcbank-input-height: 40px;
+  --form-lcbank-input-round: 8px;
+  --form-lcbank-input-size: 16px;
+  --form-lcbank-input-color: #222222;
+  --form-lcbank-input-padding: 0 5px;
+  --form-lcbank-input-transition: all .3s ease-in-out;
+  --form-lcbank-input-border: 1px solid #888;
+  --form-lcbank-input-border-focus: 1px solid #0080FF;
+  --form-lcbank-input-border-error: 1px solid #C02020;
+  --form-lcbank-input-border-success: 1px solid #108454;
+
+  /* label */
+  --form-lcbank-label-width: 100%;
+  --form-lcbank-label-size: 16px;
+  --form-lcbank-label-weight: 400;
+  --form-lcbank-label-margin: 0 0 5px;
+  --form-lcbank-label-display: flex;
+  --form-lcbank-label-gap: 3px;
+  --form-lcbank-label-color: #1E1E1E;
+
+  /* required */
+  --form-lcbank-required-color: red;
+
+  /* button */
+  --form-lcbank-button-size: 16px;
+  --form-lcbank-button-background-color: #D10774;
+  --form-lcbank-button-background-color-hover: #bb065e;
+  --form-lcbank-button-color: #fff;
+  --form-lcbank-button-color-hover: #fff;
+  --form-lcbank-button-round: 8px;
+  --form-lcbank-button-height: 40px;
+  --form-lcbank-button-margin: 10px auto 0;
+  --form-lcbank-button-width: 100%;
+  --form-lcbank-button-border: none;
+  --form-lcbank-button-weight: 600;
+  --form-lcbank-button-transition: all .3s ease-in-out;
+
+  /* images */
+  --form-lcbank-image-success: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjIgMTEuMDhWMTJDMjEuOTk4OCAxNC4xNTY0IDIxLjMwMDUgMTYuMjU0NyAyMC4wMDkzIDE3Ljk4MThDMTguNzE4MiAxOS43MDkgMTYuOTAzMyAyMC45NzI1IDE0LjgzNTQgMjEuNTgzOUMxMi43Njc0IDIyLjE5NTMgMTAuNTU3MyAyMi4xMjE5IDguNTM0NDcgMjEuMzc0NkM2LjUxMTY4IDIwLjYyNzMgNC43ODQ2NSAxOS4yNDYxIDMuNjEwOTYgMTcuNDM3MUMyLjQzNzI3IDE1LjYyOCAxLjg3OTc5IDEzLjQ4ODEgMi4wMjE2OCAxMS4zMzYzQzIuMTYzNTYgOS4xODQ1NiAyLjk5NzIxIDcuMTM2MzIgNC4zOTgyOCA1LjQ5NzA3QzUuNzk5MzUgMy44NTc4MiA3LjY5Mjc5IDIuNzE1MzggOS43OTYxOSAyLjI0MDE0QzExLjg5OTYgMS43NjQ5MSAxNC4xMDAzIDEuOTgyMzMgMTYuMDcgMi44Nk0yMiA0TDEyIDE0LjAxTDkuMDAwMDEgMTEuMDEiIHN0cm9rZT0iIzEwODQ1NCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=');
+  --form-lcbank-image-error: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgOFYxMk0xMiAxNkgxMi4wMU0yMiAxMkMyMiAxNy41MjI4IDE3LjUyMjggMjIgMTIgMjJDNi40NzcxNSAyMiAyIDE3LjUyMjggMiAxMkMyIDYuNDc3MTUgNi40NzcxNSAyIDEyIDJDMTcuNTIyOCAyIDIyIDYuNDc3MTUgMjIgMTJaIiBzdHJva2U9IiNDMDIwMjAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+');
+}
+
+.form-lcbank-master {
+  box-sizing: border-box;
+  width: var(--form-lcbank-master-width);
+  font-family: var(--form-lcbank-master-font);
+  padding: var(--form-lcbank-master-padding);
+  background: var(--form-lcbank-master-background-color);
+  border: var(--form-lcbank-master-border);
+  border-radius: var(--form-lcbank-master-round)
+}
+
+.form-lcbank-field {
+  margin: var(--form-lcbank-field-margin);
+}
+
+.form-lcbank-label {
+  width: var(--form-lcbank-label-width);
+  font-weight: var(--form-lcbank-label-weight);
+  font-size: var(--form-lcbank-label-size);
+  margin: var(--form-lcbank-label-margin);
+  display: var(--form-lcbank-label-display);
+  gap: var(--form-lcbank-label-gap);
+  color: var(--form-lcbank-label-color);
+}
+
+.form-lcbank-input {
+  outline: none;
+  color: var(--form-lcbank-input-color);
+  width: var(--form-lcbank-input-width);
+  padding: var(--form-lcbank-input-padding);
+  height: var(--form-lcbank-input-height);
+  border-radius: var(--form-lcbank-input-round);
+  border: var(--form-lcbank-input-border);
+  transition: var(--form-lcbank-input-transition);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 10px) center;
+  font-size: var(--form-lcbank-input-size);
+  &:focus {
+    border: var(--form-lcbank-input-border-focus);
+  }
+  &.error {
+    border: var(--form-lcbank-input-border-error);
+    background-image: var(--form-lcbank-image-error);
+  }
+  &.error + .form-lcbank-error {
+    display: block;
+  }
+  &.success {
+    border: var(--form-lcbank-input-border-success);
+    background-image: var(--form-lcbank-image-success);
+  }
+}
+
+.form-lcbank-required {
+  color: var(--form-lcbank-required-color);
+}
+
+.form-lcbank-label-button {
+  font-size: var(--form-lcbank-button-size);
+  background: var(--form-lcbank-button-background-color);
+  color: var(--form-lcbank-button-color);
+  height: var(--form-lcbank-button-height);
+  width: var(--form-lcbank-button-width);
+  border: var(--form-lcbank-button-border);
+  border-radius: var(--form-lcbank-button-round);
+  font-weight: var(--form-lcbank-button-weight);
+  cursor: pointer;
+  transition: var(--form-lcbank-button-transition);
+  &:hover {
+    transition: var(--form-lcbank-button-transition);
+    background: var(--form-lcbank-button-background-color-hover);
+    color: var(--form-lcbank-button-color-hover);
+  }
+
+}
+
+.form-lcbank-error {
+  color: var(--form-lcbank-error-color);
+  font-size: var(--form-lcbank-error-size);
+  display: none;
+  margin: var(--form-lcbank-error-margin)
+}

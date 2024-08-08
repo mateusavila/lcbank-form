@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+
+    <title>Formulário</title>
+    <style>
+      *, *:before, *:after {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <button data-call-to-action>Abrir modal</button>
+    <div 
+      id="form-rtv-apply" 
+      data-go-to="/home"
+      data-hide-placeholder="true"
+      data-has-email="false"
+      data-label-name="Nome Completo"
+      data-input-url="https://www.google.com.br/homepage"
+      data-input-site="https://www.google.com.br">
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
