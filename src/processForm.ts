@@ -4,10 +4,10 @@ export const processForm = async (fields: Record<string, string>, goTo: string) 
     body: JSON.stringify(fields),
   })
     .then((response: any) => {
-      console.log(response)
+      console.log('response', response)
     })
     .catch((error: any) => {
-      console.log(error)
+      console.log('error', error)
     })
     .finally(() => {
       // window.location.href = goTo

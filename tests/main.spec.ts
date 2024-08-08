@@ -3,7 +3,7 @@ import { createForm } from '../src/createForm'
 
 describe('createForm', () => {
   beforeEach(() => {
-    document.body.innerHTML = `<div 
+    document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
       id="form-rtv-apply" 
       data-has-email="true" 
       data-label-name="Nome Completo" 
@@ -21,6 +21,20 @@ describe('createForm', () => {
     })
   })
 
+  it('should open and close the modal', () => {
+    createForm()
+
+    const callToActions: NodeListOf<HTMLButtonElement> = document.querySelectorAll('[data-call-to-action]')
+    const modal = document.getElementById('form-lcbank-modal')!
+    const closeButton = document.getElementById('form-lcbank-close')!
+    callToActions[0].click()
+    expect(modal.classList.contains('active')).toBe(true)
+    closeButton.click()
+    expect(modal.classList.contains('active')).toBe(false)
+    callToActions[1].click()
+    expect(modal.classList.contains('active')).toBe(true)
+  })
+
   it('should warning the user if the ID is wrong', () => {
     document.body.innerHTML = `<div  id="form-rtv-errado"></div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
@@ -36,12 +50,30 @@ describe('createForm', () => {
     expect(document.querySelector('#form-lcbank-label-cpf')?.textContent).toContain('CPF')
     expect(document.querySelector('#form-lcbank-label-button')?.textContent).toContain('Enviar seus dados')
     expect(document.querySelector('#form-lcbank-label-phone')?.textContent).toContain('Telefone')
+
+    expect((document.querySelector('.form-lcbank-image-money') as HTMLImageElement)?.src).toBe('https://precatorioestadual.com.br/wp-content/uploads/2024/08/money-desktop.png')
+    expect((document.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://precatorioestadual.com.br/wp-content/uploads/2024/08/logotipo.png')
+
+    expect(document.querySelector('.form-lcbank-master-title')?.textContent).toContain('Solicite a antecipação')
+    expect(document.querySelector('.form-lcbank-master-subtitle')?.textContent).toContain('Preencha o formulário para que nossos especialistas consultem seu processo:')
+    expect(document.querySelectorAll('.form-lcbank-master-privacy')[0]?.textContent).toContain('Ao enviar meus dados, eu concordo com a')
+    expect(document.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.textContent).toContain('Política de Privacidade')
+    expect(document.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.href).toBe('https://google.com.br/')
+    expect(document.querySelectorAll('.form-lcbank-master-privacy')[1]?.textContent).toContain('*Após a assinatura do contrato.')
   })
 
   it('should use custom labels from data attributes', () => {
     document.querySelector('#form-rtv-apply')?.setAttribute('data-label-name', 'Nome Personalizado')
     createForm()
     expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Personalizado')
+  })
+
+  it('should update the images', () => {
+    document.querySelector('#form-rtv-apply')?.setAttribute('data-logo-company', 'https://www.php.net/images/logos/php-logo.svg')
+    document.querySelector('#form-rtv-apply')?.setAttribute('data-image-money', 'https://www.google.com/logos/doodles/2024/paris-games-climbing-day-2-6753651837110565-law.gif')
+    createForm()
+    expect((document.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://www.php.net/images/logos/php-logo.svg')
+    expect((document.querySelector('.form-lcbank-image-money') as HTMLImageElement)?.src).toBe('https://www.google.com/logos/doodles/2024/paris-games-climbing-day-2-6753651837110565-law.gif')
   })
 
   it('should the placeholder is changed', () => {
@@ -179,10 +211,12 @@ describe('createForm', () => {
 
     submitButton.click()
 
+
     expect(phoneInput?.classList.contains('success')).toBe(true)
     expect(emailInput?.classList.contains('success')).toBe(true)
     expect(nameInput?.classList.contains('success')).toBe(true)
     expect(cpfInput?.classList.contains('success')).toBe(true)
+
   })
 
   it('should use default labels when no custom labels are provided', () => {
