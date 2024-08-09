@@ -1,9 +1,12 @@
 import { processForm } from "./processForm"
+import { ValidateForm } from "./types"
 import { validateCPF } from "./validateCPF"
 import { validateEmail } from "./validateEmail"
 import { validatePhoneNumber } from "./validatePhone"
 
-export const validateForm = (hasEmail: boolean, goTo: string) => {
+export const validateForm = (options: ValidateForm) => {
+
+  const { requiredEmail, goTo, hasEmail } = options
 
   const form: HTMLElement = document.getElementById('form-lcbank')!
   if (form) {
@@ -57,7 +60,7 @@ export const validateForm = (hasEmail: boolean, goTo: string) => {
         fieldPhone?.classList.add('success')
       }
 
-      if (hasEmail && !validateEmail(fields.email)) {
+      if (hasEmail && requiredEmail && !validateEmail(fields.email)) {
         fieldEmail?.classList.add('error')
         errors++
       }

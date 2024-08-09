@@ -9,6 +9,8 @@ describe('createForm', () => {
       data-label-name="Nome Completo" 
       data-label-cpf="CPF" 
       data-label-phone="Telefone" 
+      data-page-title="Página do Mateus"
+      data-page-url="https://www.google.com.br/homepage"
       data-input-url="https://www.google.com.br/homepage"
       data-input-site="https://www.google.com.br"
       data-placeholder-phone="(99) 9999-9999" 
@@ -20,6 +22,42 @@ describe('createForm', () => {
       writable: true
     })
   })
+
+  it('should show warning the developer if title is missing', () => {
+    document.body.innerHTML = `<div 
+      id="form-rtv-apply">
+    </div>`
+    const consoleErrorSpy = vi.spyOn(console, 'error')
+    createForm()
+    expect(consoleErrorSpy).toHaveBeenCalledWith("É necessário atribuir o título da página com data-page-title=\"Título da página\"")
+  })
+
+  it('should show warning the developer if page-url is missing', () => {
+    document.body.innerHTML = `<div 
+      id="form-rtv-apply" data-page-title="Página do Mateus">
+    </div>`
+    const consoleErrorSpy = vi.spyOn(console, 'error')
+    createForm()
+    expect(consoleErrorSpy).toHaveBeenCalledWith("É necessário atribuir a URL da página com data-page-url=\"https://www.lcbank.com.br\". Esta URL precisa ser válida.")
+  })
+
+  it('should show warning the developer uses invalid url at page-url', () => {
+    document.body.innerHTML = `<div 
+      id="form-rtv-apply" data-page-title="Página do Mateus"
+      data-page-url="https://www">
+    </div>`
+    const consoleErrorSpy = vi.spyOn(console, 'error')
+    createForm()
+    expect(consoleErrorSpy).toHaveBeenCalledWith("É necessário atribuir a URL da página com data-page-url=\"https://www.lcbank.com.br\". Esta URL precisa ser válida.")
+  })
+
+  it('should warning the user if the ID is wrong', () => {
+    document.body.innerHTML = `<div  id="form-rtv-errado"></div>`
+    const consoleErrorSpy = vi.spyOn(console, 'error')
+    createForm()
+    expect(consoleErrorSpy).toHaveBeenCalledWith("O Elemento #form-rtv-apply não existe na página")
+  })
+
 
   it('should open and close the modal', () => {
     createForm()
@@ -121,7 +159,7 @@ describe('createForm', () => {
   it('should have at least 2 input hidden fields', () => {
     createForm()
     const requiredFields = document.querySelectorAll('input[type="hidden"]')
-    expect(requiredFields.length).toBe(2)
+    expect(requiredFields.length).toBe(4)
   })
 
   it('should apply the mask on CPF field', () => {
@@ -221,7 +259,8 @@ describe('createForm', () => {
 
   it('should use default labels when no custom labels are provided', () => {
     document.body.innerHTML = `
-      <div id="form-rtv-apply"></div>
+      <div id="form-rtv-apply" data-page-title="Página do Mateus"
+      data-page-url="https://www.google.com.br/homepage"></div>
     `
     createForm()
 
@@ -234,10 +273,12 @@ describe('createForm', () => {
     document.body.innerHTML = `
       <div id="form-rtv-apply"
         data-has-email="true"
-           data-label-name="Nome Personalizado"
-           data-label-cpf="CPF Personalizado"
-           data-label-phone="Telefone Personalizado"
-           data-label-email="E-mail Personalizado">
+        data-label-name="Nome Personalizado"
+        data-label-cpf="CPF Personalizado"
+        data-label-phone="Telefone Personalizado"
+        data-page-title="Página do Mateus"
+        data-page-url="https://www.google.com.br/homepage"
+        data-label-email="E-mail Personalizado">
       </div>
     `
     createForm()
@@ -251,8 +292,10 @@ describe('createForm', () => {
   it('should use a mix of default and custom labels', () => {
     document.body.innerHTML = `
       <div id="form-rtv-apply"
-           data-label-name="Nome Personalizado"
-           data-label-cpf="CPF Personalizado">
+        data-page-title="Página do Mateus"
+        data-page-url="https://www.google.com.br/homepage"
+        data-label-name="Nome Personalizado"
+        data-label-cpf="CPF Personalizado">
       </div>
     `
     createForm()

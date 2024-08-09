@@ -3,6 +3,9 @@ import { maskPhone } from './maskPhone'
 import { validateForm } from './validateForm'
 import { collectionInput } from './collectionInput'
 import { modalBox } from './modalBox'
+import { urlBuilder } from './urlBuilder'
+import { isValidURL } from './isValidURL'
+import { ValidateForm } from './types'
 
 export const createForm = () => {
   const block = document.querySelector<HTMLDivElement>('#form-rtv-apply')
@@ -10,26 +13,39 @@ export const createForm = () => {
   if (!block) {
     console.error("O Elemento #form-rtv-apply não existe na página")
     return
-
   }
   const data = block.dataset
 
-  const inputs = collectionInput(data)
-  console.log(inputs)
+  // campos obrigatórios
+  const pageTitle = data.pageTitle?.length
+  const pageUrl = data.pageUrl?.length
 
-  let inputsArray = ''
-
-  if (inputs.length) {
-    inputs.map((input) => {
-      return inputsArray += `<input type="hidden" name="${input.key}" value="${input.value}" />`
-    })
+  if (!pageTitle) {
+    console.error("É necessário atribuir o título da página com data-page-title=\"Título da página\"")
+    return
   }
 
+  if (!pageUrl || !isValidURL(data.pageUrl)) {
+    console.error("É necessário atribuir a URL da página com data-page-url=\"https://www.lcbank.com.br\". Esta URL precisa ser válida.")
+    return
+  }
+
+  let printInputs = ''
+  let inputs = [...collectionInput(data), { key: 'page_title', value: data.pageTitle }, { key: 'page_url', value: data.pageUrl }]
+  const getUrlQueryString = window.location.search
+
+  if (getUrlQueryString) {
+    inputs = [...inputs, ...urlBuilder(getUrlQueryString)]
+  }
+
+  inputs.map(({ key, value }) => {
+    return printInputs += `<input type="hidden" name="${key}" value="${value}" />`
+  })
 
   const hidePlaceholder = data.hidePlaceholder === 'true'
-
   const goTo = data.goTo ?? '/obrigado'
   const hasEmail = data.hasEmail === 'true'
+  const requiredEmail = data.requiredEmail !== 'false'
 
   const company = data.company ?? 'LC Bank'
   const logoCompany = data.logoCompany ?? 'https://precatorioestadual.com.br/wp-content/uploads/2024/08/logotipo.png'
@@ -89,7 +105,7 @@ export const createForm = () => {
             <label class="form-lcbank-label" for="form-lcbank-phone" id="form-lcbank-label-phone">${labelPhone} <span class="form-lcbank-required">*</span></label>
             <input type="text" class="form-lcbank-input" name="phone" id="form-lcbank-phone" placeholder="${placeholderPhone}"><span class="form-lcbank-error">${errorPhone}</span>
           </div>
-          ${inputsArray}
+          ${printInputs}
           <div class="form-lcbank-field">
             <button type="submit" id="form-lcbank-label-button" class="form-lcbank-label-button">${labelButton}</button>
           </div>
@@ -100,9 +116,6 @@ export const createForm = () => {
     </div>
   </div>`
 
-
-  const activeUrl = window.location.href
-  console.log(activeUrl)
   block.innerHTML = template
 
   // adiciona os controles de abertura de modal
@@ -113,5 +126,10 @@ export const createForm = () => {
   maskPhone(document.querySelector('#form-lcbank-phone')!)
 
   // validar o formulário
-  validateForm(hasEmail, goTo)
+  const optionsValidateForm: ValidateForm = {
+    goTo,
+    hasEmail,
+    requiredEmail
+  }
+  validateForm(optionsValidateForm)
 }
