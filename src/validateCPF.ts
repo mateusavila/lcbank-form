@@ -40,7 +40,3 @@ export function validateCPF(cpf: string): boolean {
 
   return true
 }
-
-// Usage example
-// console.log(validateCPF('123.456.789-09')) // false
-// console.log(validateCPF('529.982.247-25')) // true

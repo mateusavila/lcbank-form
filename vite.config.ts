@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig(({ mode }) => {
+
   if (mode === 'production') {
     return {
       build: {
@@ -18,5 +19,12 @@ export default defineConfig(({ mode }) => {
       }
     }
   }
-  return {}
+  return {
+    test: {
+      includeSource: ['src/**/*.{js,ts}'],
+    },
+    define: {
+      'import.meta.vitest': 'undefined',
+    }
+  }
 })

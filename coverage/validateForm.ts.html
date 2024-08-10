@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>65/65</span>
+                <span class='fraction'>63/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>65/65</span>
+                <span class='fraction'>63/63</span>
             </div>
         
             
@@ -143,12 +143,7 @@
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -179,6 +174,9 @@
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -187,8 +185,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,8 +192,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,8 +199,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,8 +206,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -263,44 +253,39 @@ export const validateForm = (options: ValidateForm) =&gt; {
     const fieldPhone = document.getElementById('form-lcbank-phone')
     const fieldEmail = document.getElementById('form-lcbank-email') ?? null
 &nbsp;
+    const resetCSSInputs = (input: HTMLElement) =&gt; input.classList.remove('error', 'success')
+&nbsp;
     form.addEventListener('submit', function (event) {
       event.preventDefault()
       let errors = 0
-      const fields = createJsonObject(form as HTMLFormElement)
+      const fields = createJsonObject(form as HTMLFormElement);
+      [fieldName, fieldCpf, fieldPhone, fieldEmail].forEach((field) =&gt; field &amp;&amp; resetCSSInputs(field))
 &nbsp;
       if (!requiredField(fields.name)) {
         fieldName?.classList.add('error')
         errors++
-      }
-&nbsp;
-      if (requiredField(fields.name)) {
+      } else {
         fieldName?.classList.add('success')
       }
 &nbsp;
       if (!validateCPF(fields.cpf)) {
         fieldCpf?.classList.add('error')
         errors++
-      }
-&nbsp;
-      if (validateCPF(fields.cpf)) {
+      } else {
         fieldCpf?.classList.add('success')
       }
 &nbsp;
       if (!validatePhoneNumber(fields.phone)) {
         fieldPhone?.classList.add('error')
         errors++
-      }
-&nbsp;
-      if (validatePhoneNumber(fields.phone)) {
+      } else {
         fieldPhone?.classList.add('success')
       }
 &nbsp;
       if (hasEmail &amp;&amp; requiredEmail &amp;&amp; !validateEmail(fields.email)) {
         fieldEmail?.classList.add('error')
         errors++
-      }
-&nbsp;
-      if (hasEmail &amp;&amp; validateEmail(fields.email)) {
+      } else {
         fieldEmail?.classList.add('success')
       }
 &nbsp;
@@ -325,7 +310,7 @@ export const validateForm = (options: ValidateForm) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-09T22:30:30.205Z
+                at 2024-08-10T00:26:53.022Z
             </div>
         <script src="prettify.js"></script>
         <script>

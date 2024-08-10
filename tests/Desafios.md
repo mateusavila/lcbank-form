@@ -9,8 +9,10 @@ feito
 - editar estilo
 - validar submit
 - rota api
+- adicionar tags do google gtm
+- validar email
+- adicionar campo email como presente e não obrigatório
 
 a fazer
 - bloquear CPF para evitar que usuário envie toda hora.
-- adicionar tags do google gtm
 - ajudar desenvolvedores a adicionar o formulário com playground

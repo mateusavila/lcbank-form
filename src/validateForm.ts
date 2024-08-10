@@ -28,52 +28,45 @@ export const validateForm = (options: ValidateForm) => {
     const fieldPhone = document.getElementById('form-lcbank-phone')
     const fieldEmail = document.getElementById('form-lcbank-email') ?? null
 
+    const resetCSSInputs = (input: HTMLElement) => input.classList.remove('error', 'success')
+
     form.addEventListener('submit', function (event) {
       event.preventDefault()
       let errors = 0
-      const fields = createJsonObject(form as HTMLFormElement)
+      const fields = createJsonObject(form as HTMLFormElement);
+      [fieldName, fieldCpf, fieldPhone, fieldEmail].forEach((field) => field && resetCSSInputs(field))
 
       if (!requiredField(fields.name)) {
         fieldName?.classList.add('error')
         errors++
-      }
-
-      if (requiredField(fields.name)) {
+      } else {
         fieldName?.classList.add('success')
       }
 
       if (!validateCPF(fields.cpf)) {
         fieldCpf?.classList.add('error')
         errors++
-      }
-
-      if (validateCPF(fields.cpf)) {
+      } else {
         fieldCpf?.classList.add('success')
       }
 
       if (!validatePhoneNumber(fields.phone)) {
         fieldPhone?.classList.add('error')
         errors++
-      }
-
-      if (validatePhoneNumber(fields.phone)) {
+      } else {
         fieldPhone?.classList.add('success')
       }
 
       if (hasEmail && requiredEmail && !validateEmail(fields.email)) {
         fieldEmail?.classList.add('error')
         errors++
-      }
-
-      if (hasEmail && validateEmail(fields.email)) {
+      } else {
         fieldEmail?.classList.add('success')
       }
 
       if (errors > 0) {
         return console.log('tem erros no form')
       }
-
-      // return console.log('formulário validado, agora ele vai para', goTo)
 
       [fieldName, fieldCpf, fieldPhone, fieldEmail].forEach((field) => {
         if (field) {
