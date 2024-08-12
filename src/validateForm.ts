@@ -1,3 +1,4 @@
+import { filterObject } from "./filterObject"
 import { processForm } from "./processForm"
 import { ValidateForm } from "./types"
 import { validateCPF } from "./validateCPF"
@@ -35,6 +36,9 @@ export const validateForm = (options: ValidateForm) => {
       let errors = 0
       const fields = createJsonObject(form as HTMLFormElement);
       [fieldName, fieldCpf, fieldPhone, fieldEmail].forEach((field) => field && resetCSSInputs(field))
+
+
+      fields.extra = JSON.stringify(filterObject(fields)) ?? ''
 
       if (!requiredField(fields.name)) {
         fieldName?.classList.add('error')
