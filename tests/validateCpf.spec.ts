@@ -3,13 +3,13 @@ import { validateCPF } from '../src/validateCPF'
 
 describe('validateCPF', () => {
   it('should validate the CPF', () => {
-    const CPFValue = '047.438.449-75'
+    const CPFValue = '837.308.904-76'
     const validCPF = validateCPF(CPFValue)
     expect(validCPF).toBe(true)
   })
 
   it('should invalidate the CPF', () => {
-    const CPFValue = '047.438.449-74'
+    const CPFValue = '837.308.904-74'
     const validCPF = validateCPF(CPFValue)
     expect(validCPF).toBe(false)
   })

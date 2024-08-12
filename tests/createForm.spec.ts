@@ -9,7 +9,7 @@ describe('createForm', () => {
       data-label-name="Nome Completo" 
       data-label-cpf="CPF" 
       data-label-phone="Telefone" 
-      data-page-title="Página do Mateus"
+      data-page-title="Página do Desenvolvedor"
       data-website="LCBank"
       data-page-url="https://www.google.com.br/homepage"
       data-input-url="https://www.google.com.br/homepage"
@@ -36,7 +36,7 @@ describe('createForm', () => {
   it('should show warning the developer if page-url is missing', () => {
     document.body.innerHTML = `<div 
       id="form-rtv-apply" 
-      data-website="LC Bank" data-page-title="Página do Mateus">
+      data-website="LC Bank" data-page-title="Página do Desenvolvedor">
     </div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
     createForm()
@@ -47,7 +47,7 @@ describe('createForm', () => {
     document.body.innerHTML = `<div 
       id="form-rtv-apply" 
       data-website="LC Bank"
-      data-page-title="Página do Mateus"
+      data-page-title="Página do Desenvolvedor"
       data-page-url="https://www">
     </div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
@@ -58,7 +58,7 @@ describe('createForm', () => {
   it('should show warning the developer if website is missing', () => {
     document.body.innerHTML = `<div 
       id="form-rtv-apply" 
-      data-page-title="Página do Mateus"
+      data-page-title="Página do Desenvolvedor"
       data-page-url="https://www.lcbank.com">
     </div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
@@ -192,25 +192,25 @@ describe('createForm', () => {
   it('should apply the mask on Phone field - cellphone', () => {
     createForm()
     const phoneInput: HTMLInputElement = document.querySelector('#form-lcbank-phone')!
-    const inputSequence = '47988535582'
+    const inputSequence = '99999999999'
     inputSequence.split('').forEach(char => {
       phoneInput.value += char
       phoneInput.dispatchEvent(new Event('input'))
     })
     expect(phoneInput).not.toBeNull()
-    expect(phoneInput?.value).toBe('(47) 98853-5582')
+    expect(phoneInput?.value).toBe('(99) 99999-9999')
   })
 
   it('should apply the mask on Phone field - fixed phone', () => {
     createForm()
     const phoneInput: HTMLInputElement = document.querySelector('#form-lcbank-phone')!
-    const inputSequence = '4733535582'
+    const inputSequence = '9999999999'
     inputSequence.split('').forEach(char => {
       phoneInput.value += char
       phoneInput.dispatchEvent(new Event('input'))
     })
     expect(phoneInput).not.toBeNull()
-    expect(phoneInput?.value).toBe('(47) 3353-5582')
+    expect(phoneInput?.value).toBe('(99) 9999-9999')
   })
 
   it('should show errors when invalid data', () => {
@@ -238,25 +238,25 @@ describe('createForm', () => {
     const nameInput: HTMLInputElement = document.querySelector('#form-lcbank-name')!
     const cpfInput: HTMLInputElement = document.querySelector('#form-lcbank-cpf')!
 
-    const phoneSequence = '47988535582'
+    const phoneSequence = '47999999999'
     phoneSequence.split('').forEach(char => {
       phoneInput.value += char
       phoneInput.dispatchEvent(new Event('input'))
     })
 
-    const cpfSequence = '04743844975'
+    const cpfSequence = '83730890476'
     cpfSequence.split('').forEach(char => {
       cpfInput.value += char
       cpfInput.dispatchEvent(new Event('input'))
     })
 
-    const emailSequence = 'mateus@mateusavila.com.br'
+    const emailSequence = 'teste@teste.com.br'
     emailSequence.split('').forEach(char => {
       emailInput.value += char
       emailInput.dispatchEvent(new Event('input'))
     })
 
-    const nameSequence = 'Mateus Ávila Isidoro'
+    const nameSequence = 'Teste Plataforma'
     nameSequence.split('').forEach(char => {
       nameInput.value += char
       nameInput.dispatchEvent(new Event('input'))
@@ -274,7 +274,7 @@ describe('createForm', () => {
 
   it('should use default labels when no custom labels are provided', () => {
     document.body.innerHTML = `
-      <div id="form-rtv-apply" data-page-title="Página do Mateus"
+      <div id="form-rtv-apply" data-page-title="Página do Desenvolvedor"
       data-website="LC Bank"
       data-page-url="https://www.google.com.br/homepage"></div>
     `
@@ -292,7 +292,7 @@ describe('createForm', () => {
         data-label-name="Nome Personalizado"
         data-label-cpf="CPF Personalizado"
         data-label-phone="Telefone Personalizado"
-        data-page-title="Página do Mateus"
+        data-page-title="Página do Desenvolvedor"
         data-page-url="https://www.google.com.br/homepage"
         data-website="LC Bank"
         data-label-email="E-mail Personalizado">
@@ -310,7 +310,7 @@ describe('createForm', () => {
     document.body.innerHTML = `
       <div id="form-rtv-apply"
       data-website="LC Bank"
-        data-page-title="Página do Mateus"
+        data-page-title="Página do Desenvolvedor"
         data-page-url="https://www.google.com.br/homepage"
         data-label-name="Nome Personalizado"
         data-label-cpf="CPF Personalizado">

@@ -6,15 +6,15 @@ describe('FilterObject', () => {
   it('should add URL parameters to inputs array', () => {
 
     const fields = {
-      "name": "Mateus Ávila Isidoro",
-      "email": "mateus@mateusavila.com.br",
-      "cpf": "047.438.449-75",
-      "phone": "(47) 98853-5582",
+      "name": "Teste plataforma",
+      "email": "teste@teste.com.br",
+      "cpf": "999.999.999-99",
+      "phone": "(99) 99999-9999",
       "site": "https://www.google.com.br",
-      "author": "Mateus Ávila Isidoro",
+      "author": "Teste plataforma",
       "contract": "123.456.789.991",
       "affiliate": "Café das 4",
-      "page_title": "Página do Mateus",
+      "page_title": "LCBank Form test",
       "page_url": "https://www.google.com.br/homepage",
       "utm_source": "google",
       "utm_medium": "cpc",
@@ -30,7 +30,7 @@ describe('FilterObject', () => {
 
     expect(extra).toStrictEqual({
       "site": "https://www.google.com.br",
-      "author": "Mateus Ávila Isidoro",
+      "author": "Teste plataforma",
       "contract": "123.456.789.991",
       "affiliate": "Café das 4",
     })
