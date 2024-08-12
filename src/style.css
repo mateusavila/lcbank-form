@@ -92,6 +92,11 @@
   --form-lcbank-loading-image-width: 48px;
   --form-lcbank-loading-image-height: 48px;
 
+  /* result */
+  --form-lcbank-result-background-color: #fff;
+  --form-lcbank-result-h2-color: #ba055d;
+  --form-lcbank-result-p-color: #ba055d;
+
   /* images */
   --form-lcbank-image-success: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjIgMTEuMDhWMTJDMjEuOTk4OCAxNC4xNTY0IDIxLjMwMDUgMTYuMjU0NyAyMC4wMDkzIDE3Ljk4MThDMTguNzE4MiAxOS43MDkgMTYuOTAzMyAyMC45NzI1IDE0LjgzNTQgMjEuNTgzOUMxMi43Njc0IDIyLjE5NTMgMTAuNTU3MyAyMi4xMjE5IDguNTM0NDcgMjEuMzc0NkM2LjUxMTY4IDIwLjYyNzMgNC43ODQ2NSAxOS4yNDYxIDMuNjEwOTYgMTcuNDM3MUMyLjQzNzI3IDE1LjYyOCAxLjg3OTc5IDEzLjQ4ODEgMi4wMjE2OCAxMS4zMzYzQzIuMTYzNTYgOS4xODQ1NiAyLjk5NzIxIDcuMTM2MzIgNC4zOTgyOCA1LjQ5NzA3QzUuNzk5MzUgMy44NTc4MiA3LjY5Mjc5IDIuNzE1MzggOS43OTYxOSAyLjI0MDE0QzExLjg5OTYgMS43NjQ5MSAxNC4xMDAzIDEuOTgyMzMgMTYuMDcgMi44Nk0yMiA0TDEyIDE0LjAxTDkuMDAwMDEgMTEuMDEiIHN0cm9rZT0iIzEwODQ1NCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=');
   --form-lcbank-image-error: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgOFYxMk0xMiAxNkgxMi4wMU0yMiAxMkMyMiAxNy41MjI4IDE3LjUyMjggMjIgMTIgMjJDNi40NzcxNSAyMiAyIDE3LjUyMjggMiAxMkMyIDYuNDc3MTUgNi40NzcxNSAyIDEyIDJDMTcuNTIyOCAyIDIyIDYuNDc3MTUgMjIgMTJaIiBzdHJva2U9IiNDMDIwMjAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+');
@@ -177,6 +182,57 @@
   .form-lcbank-loading-img {
     width: var(--form-lcbank-loading-image-width);
     height: var(--form-lcbank-loading-image-height);
+  }
+}
+
+.form-lcbank-result {
+  position: absolute;
+  border-radius: var(--form-lcbank-form-round);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--form-lcbank-result-background-color);
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  transition: all .2s ease-in-out;
+  z-index: 10;
+  &.active {
+    visibility: visible;
+    transition: all .2s ease-in-out;
+    opacity: 1;
+  }
+  .form-lcbank-result-info {
+    width: 100%;
+    padding: 20px;
+  }
+  .form-lcbank-result-title {
+    color: var(--form-lcbank-result-h2-color);
+  }
+  .form-lcbank-result-text {
+    color: var(--form-lcbank-result-p-color);
+  }
+  .form-lcbank-result-button {
+    padding: 0 20px;
+    font-size: var(--form-lcbank-button-size);
+    background: var(--form-lcbank-button-background-color);
+    color: var(--form-lcbank-button-color);
+    height: var(--form-lcbank-button-height);
+    width: var(--form-lcbank-button-width);
+    border: var(--form-lcbank-button-border);
+    border-radius: var(--form-lcbank-button-round);
+    font-weight: var(--form-lcbank-button-weight);
+    cursor: pointer;
+    transition: var(--form-lcbank-button-transition);
+    &:hover {
+      transition: var(--form-lcbank-button-transition);
+      background: var(--form-lcbank-button-background-color-hover);
+      color: var(--form-lcbank-button-color-hover);
+    }
   }
 }
 

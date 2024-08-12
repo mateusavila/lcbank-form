@@ -7,6 +7,7 @@ import { urlBuilder } from './urlBuilder'
 import { isValidURL } from './isValidURL'
 import { ValidateForm } from './types'
 import { loadingBox } from './loadingBox'
+import { resultBox } from './resultBox'
 
 export const createForm = () => {
   const block = document.querySelector<HTMLDivElement>('#form-rtv-apply')
@@ -118,6 +119,7 @@ export const createForm = () => {
             <button type="submit" id="form-lcbank-label-button" class="form-lcbank-label-button">${labelButton}</button>
           </div>
           ${loadingBox().template}
+          ${resultBox().template}
         </form>
         <p class="form-lcbank-master-privacy">${modalPrivacy} <a href="${modalPrivacyLink}" target="_blank" rel="noopener noreferrer">${modalPrivacyText}</a></p>
         <p class="form-lcbank-master-privacy">${modalFooterText}</p>

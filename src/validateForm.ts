@@ -79,8 +79,7 @@ export const validateForm = (options: ValidateForm) => {
           (field as HTMLInputElement).disabled = true
         }
       })
-      setTimeout(() => loadingBox().startLoading(), 500)
-
+      loadingBox().startLoading()
       return processForm(fields, goTo)
     })
   }
