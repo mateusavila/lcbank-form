@@ -1,4 +1,4 @@
-name: Build and Release
+name: Build, Release and Deploy
 
 on:
   push:
@@ -12,6 +12,8 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
@@ -27,13 +29,16 @@ jobs:
       - name: Run tests
         run: bun test --env jsdom
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist 
+      - name: Commit and Push Built Files
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add dist/form-lcbank.js dist/form-lcbank.css
+          git commit -m "Add built form-lcbank.js and form-lcbank.css" || echo "No changes to commit"
+          git push
 
       - name: Create Release
+        id: create_release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ github.run_number }}
@@ -41,16 +46,18 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ./dist/form-lcbank.js
-            ./dist/form-lcbank.css
+            dist/form-lcbank.js
+            dist/form-lcbank.css
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Commit built files
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist 
+
+      - name: Output jsDelivr URLs
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add ./dist/form-lcbank.js
-          git commit -m "Add built form-lcbank.js"
-          git tag v${{ github.run_number }}
-          git push origin v${{ github.run_number }}
+          echo "form-lcbank.js is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@v${{ github.run_number }}/dist/form-lcbank.js"
+          echo "form-lcbank.css is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@v${{ github.run_number }}/dist/form-lcbank.css"
