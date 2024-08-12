@@ -12,8 +12,7 @@ export const processForm = async (fields: Record<string, string>, goTo: string) 
       console.log('error', error)
     })
     .finally(() => {
-      // window.location.href = goTo
       loadingBox().endLoading()
-      console.log('go-to', goTo)
+      window.location.href = goTo
     })
 }

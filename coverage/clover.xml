@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1723483831875" clover="3.2.0">
-  <project timestamp="1723483831876" name="All files">
+<coverage generated="1723488022445" clover="3.2.0">
+  <project timestamp="1723488022445" name="All files">
     <metrics statements="320" coveredstatements="309" conditionals="124" coveredconditionals="120" methods="21" coveredmethods="21" elements="465" coveredelements="450" complexity="0" loc="320" ncloc="320" packages="1" files="16" classes="16"/>
     <file name="collectionInput.ts" path="/Users/mateus/Projetos/lucas/form/src/collectionInput.ts">
       <metrics statements="6" coveredstatements="6" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
@@ -228,10 +228,10 @@
       <line num="12" count="0" type="stmt"/>
       <line num="13" count="1" type="stmt"/>
       <line num="14" count="1" type="stmt"/>
+      <line num="15" count="0" type="stmt"/>
       <line num="16" count="0" type="stmt"/>
-      <line num="17" count="0" type="stmt"/>
-      <line num="18" count="1" type="cond" truecount="0" falsecount="1"/>
-      <line num="19" count="0" type="stmt"/>
+      <line num="17" count="1" type="cond" truecount="0" falsecount="1"/>
+      <line num="18" count="0" type="stmt"/>
     </file>
     <file name="types.ts" path="/Users/mateus/Projetos/lucas/form/src/types.ts">
       <metrics statements="0" coveredstatements="0" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
