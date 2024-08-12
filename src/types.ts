@@ -8,3 +8,11 @@ export interface ValidateForm {
   goTo: string
   requiredEmail: boolean
 }
+
+export interface InputFieldInterface {
+  name: string
+  label: string
+  type: 'text' | 'email'
+  placeholder: string
+  errorMessage: string
+}
