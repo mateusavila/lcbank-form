@@ -6,6 +6,7 @@ import { modalBox } from './modalBox'
 import { urlBuilder } from './urlBuilder'
 import { isValidURL } from './isValidURL'
 import { ValidateForm } from './types'
+import { loadingBox } from './loadingBox'
 
 export const createForm = () => {
   const block = document.querySelector<HTMLDivElement>('#form-rtv-apply')
@@ -19,9 +20,15 @@ export const createForm = () => {
   // campos obrigatórios
   const pageTitle = data.pageTitle?.length
   const pageUrl = data.pageUrl?.length
+  const website = data.website?.length
 
   if (!pageTitle) {
     console.error("É necessário atribuir o título da página com data-page-title=\"Título da página\"")
+    return
+  }
+
+  if (!website) {
+    console.error("É necessário atribuir o website com data-website=\"Título do website\"")
     return
   }
 
@@ -31,9 +38,10 @@ export const createForm = () => {
   }
 
   let printInputs = ''
-  let inputs = [...collectionInput(data), { key: 'page_title', value: data.pageTitle }, { key: 'page_url', value: data.pageUrl }]
+  let inputs = [...collectionInput(data), { key: 'page_title', value: data.pageTitle }, { key: 'page_url', value: data.pageUrl }, { key: 'website', value: data.website }]
   const getUrlQueryString = window.location.search
 
+  /* v8 ignore next 3 */
   if (getUrlQueryString) {
     inputs = [...inputs, ...urlBuilder(getUrlQueryString)]
   }
@@ -109,6 +117,7 @@ export const createForm = () => {
           <div class="form-lcbank-field">
             <button type="submit" id="form-lcbank-label-button" class="form-lcbank-label-button">${labelButton}</button>
           </div>
+          ${loadingBox().template}
         </form>
         <p class="form-lcbank-master-privacy">${modalPrivacy} <a href="${modalPrivacyLink}" target="_blank" rel="noopener noreferrer">${modalPrivacyText}</a></p>
         <p class="form-lcbank-master-privacy">${modalFooterText}</p>

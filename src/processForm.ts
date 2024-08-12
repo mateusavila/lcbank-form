@@ -1,3 +1,5 @@
+import { loadingBox } from "./loadingBox"
+
 export const processForm = async (fields: Record<string, string>, goTo: string) => {
   await fetch('http://localhost:8000/wp-json/api/contact-form', {
     method: 'POST',
@@ -11,6 +13,7 @@ export const processForm = async (fields: Record<string, string>, goTo: string) 
     })
     .finally(() => {
       // window.location.href = goTo
+      loadingBox().endLoading()
       console.log('go-to', goTo)
     })
 }

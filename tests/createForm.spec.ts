@@ -10,6 +10,7 @@ describe('createForm', () => {
       data-label-cpf="CPF" 
       data-label-phone="Telefone" 
       data-page-title="Página do Mateus"
+      data-website="LCBank"
       data-page-url="https://www.google.com.br/homepage"
       data-input-url="https://www.google.com.br/homepage"
       data-input-site="https://www.google.com.br"
@@ -34,7 +35,8 @@ describe('createForm', () => {
 
   it('should show warning the developer if page-url is missing', () => {
     document.body.innerHTML = `<div 
-      id="form-rtv-apply" data-page-title="Página do Mateus">
+      id="form-rtv-apply" 
+      data-website="LC Bank" data-page-title="Página do Mateus">
     </div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
     createForm()
@@ -43,12 +45,25 @@ describe('createForm', () => {
 
   it('should show warning the developer uses invalid url at page-url', () => {
     document.body.innerHTML = `<div 
-      id="form-rtv-apply" data-page-title="Página do Mateus"
+      id="form-rtv-apply" 
+      data-website="LC Bank"
+      data-page-title="Página do Mateus"
       data-page-url="https://www">
     </div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
     createForm()
     expect(consoleErrorSpy).toHaveBeenCalledWith("É necessário atribuir a URL da página com data-page-url=\"https://www.lcbank.com.br\". Esta URL precisa ser válida.")
+  })
+
+  it('should show warning the developer if website is missing', () => {
+    document.body.innerHTML = `<div 
+      id="form-rtv-apply" 
+      data-page-title="Página do Mateus"
+      data-page-url="https://www.lcbank.com">
+    </div>`
+    const consoleErrorSpy = vi.spyOn(console, 'error')
+    createForm()
+    expect(consoleErrorSpy).toHaveBeenCalledWith("É necessário atribuir o website com data-website=\"Título do website\"")
   })
 
   it('should warning the user if the ID is wrong', () => {
@@ -159,7 +174,7 @@ describe('createForm', () => {
   it('should have at least 2 input hidden fields', () => {
     createForm()
     const requiredFields = document.querySelectorAll('input[type="hidden"]')
-    expect(requiredFields.length).toBe(4)
+    expect(requiredFields.length).toBe(5)
   })
 
   it('should apply the mask on CPF field', () => {
@@ -260,6 +275,7 @@ describe('createForm', () => {
   it('should use default labels when no custom labels are provided', () => {
     document.body.innerHTML = `
       <div id="form-rtv-apply" data-page-title="Página do Mateus"
+      data-website="LC Bank"
       data-page-url="https://www.google.com.br/homepage"></div>
     `
     createForm()
@@ -278,6 +294,7 @@ describe('createForm', () => {
         data-label-phone="Telefone Personalizado"
         data-page-title="Página do Mateus"
         data-page-url="https://www.google.com.br/homepage"
+        data-website="LC Bank"
         data-label-email="E-mail Personalizado">
       </div>
     `
@@ -292,6 +309,7 @@ describe('createForm', () => {
   it('should use a mix of default and custom labels', () => {
     document.body.innerHTML = `
       <div id="form-rtv-apply"
+      data-website="LC Bank"
         data-page-title="Página do Mateus"
         data-page-url="https://www.google.com.br/homepage"
         data-label-name="Nome Personalizado"

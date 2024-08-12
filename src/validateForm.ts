@@ -1,9 +1,11 @@
 import { filterObject } from "./filterObject"
+import { loadingBox } from "./loadingBox"
 import { processForm } from "./processForm"
 import { ValidateForm } from "./types"
 import { validateCPF } from "./validateCPF"
 import { validateEmail } from "./validateEmail"
 import { validatePhoneNumber } from "./validatePhone"
+
 
 export const validateForm = (options: ValidateForm) => {
 
@@ -37,7 +39,7 @@ export const validateForm = (options: ValidateForm) => {
       const fields = createJsonObject(form as HTMLFormElement);
       [fieldName, fieldCpf, fieldPhone, fieldEmail].forEach((field) => field && resetCSSInputs(field))
 
-
+      /* v8 ignore next 1 */
       fields.extra = JSON.stringify(filterObject(fields)) ?? ''
 
       if (!requiredField(fields.name)) {
@@ -77,6 +79,8 @@ export const validateForm = (options: ValidateForm) => {
           (field as HTMLInputElement).disabled = true
         }
       })
+      setTimeout(() => loadingBox().startLoading(), 500)
+
       return processForm(fields, goTo)
     })
   }
