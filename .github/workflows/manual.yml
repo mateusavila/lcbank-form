@@ -22,7 +22,7 @@ jobs:
         run: bun run build
 
       - name: Run tests
-        run: bun test
+        run: bun test --env jsdom
 
       - name: Create Release
         id: create_release
