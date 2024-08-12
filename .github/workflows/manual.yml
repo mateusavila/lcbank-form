@@ -45,7 +45,7 @@ jobs:
             ./dist/form-lcbank.css
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Commit built files
         run: |
           git config --global user.name "GitHub Actions"
