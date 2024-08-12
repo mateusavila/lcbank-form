@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Formulário</title>
+    <style>
+      *, *:before, *:after {
+        box-sizing: border-box;
+      }
+    </style>
+    <script type="module" crossorigin src="/form-lcbank.js"></script>
+    <link rel="stylesheet" crossorigin href="/form-lcbank.css">
+  </head>
+  <body>
+    <button data-call-to-action>Abrir modal</button>
+    <button data-call-to-action>Abrir modal secundário</button>
+    <div 
+      id="form-rtv-apply" 
+      data-go-to="/home"
+      data-required-email="false"
+      data-has-email="true"
+      data-website="lcbank_form_api"
+      data-page-title="LC Bank Form API"
+      data-page-url="https://www.lcbform.com.br"
+      data-hide-placeholder="true"
+      data-label-name="Nome Completo"
+      data-input-author="Developer LCBank"
+      data-input-contract="123.456.789.991"
+      data-input-affiliate="Café das 4"
+      
+      >
+    </div>
+  </body>
+</html>
