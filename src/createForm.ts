@@ -4,24 +4,22 @@ import { validateForm } from './validateForm'
 import { collectionInput } from './collectionInput'
 import { modalBox } from './modalBox'
 import { urlBuilder } from './urlBuilder'
-import { isValidURL } from './isValidURL'
 import { ValidateForm } from './types'
 import { loadingBox } from './loadingBox'
 import { resultBox } from './resultBox'
 import { templateBuilder } from './templateBuilder'
 
 export const createForm = () => {
-  const block = document.querySelector<HTMLDivElement>('#form-rtv-apply')
+  const block = document.querySelector<HTMLDivElement>('#form-lcbank-apply')
 
   if (!block) {
-    console.error("O Elemento #form-rtv-apply não existe na página")
+    console.error("O Elemento #form-lcbank-apply não existe na página")
     return
   }
   const data = block.dataset
 
   // campos obrigatórios
   const pageTitle = data.pageTitle?.length
-  const pageUrl = data.pageUrl?.length
   const website = data.website?.length
 
   if (!pageTitle) {
@@ -34,13 +32,10 @@ export const createForm = () => {
     return
   }
 
-  if (!pageUrl || !isValidURL(data.pageUrl)) {
-    console.error("É necessário atribuir a URL da página com data-page-url=\"https://www.lcbank.com.br\". Esta URL precisa ser válida.")
-    return
-  }
+  const pageUrl = window.location.href
 
   let printInputs = ''
-  let inputs = [...collectionInput(data), { key: 'page_title', value: data.pageTitle }, { key: 'page_url', value: data.pageUrl }, { key: 'website', value: data.website }]
+  let inputs = [...collectionInput(data), { key: 'page_title', value: data.pageTitle }, { key: 'page_url', value: pageUrl }, { key: 'website', value: data.website }]
   const getUrlQueryString = window.location.search
 
   /* v8 ignore next 3 */
