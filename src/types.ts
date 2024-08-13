@@ -15,4 +15,5 @@ export interface InputFieldInterface {
   type: 'text' | 'email'
   placeholder: string
   errorMessage: string
+  required: boolean
 }

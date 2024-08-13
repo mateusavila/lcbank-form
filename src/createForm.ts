@@ -80,51 +80,57 @@ export const createForm = () => {
   const modalFooterText = data.modalFooterText ?? '*Após a assinatura do contrato.'
 
   const template = `<div class="form-lcbank-modal" id="form-lcbank-modal">
-    ${templateBuilder().closeModal()}
-    <div class="form-lcbank-image-box">
-      <img src="${logoCompany}" alt="${company}" class="form-lcbank-image-logo">
-      <img src="${imageMoney}" alt="image-money" class="form-lcbank-image-money">
-    </div>
-    <div class="form-lcbank-master">
-      <div class="form-lcbank-master-container">
-        <h2 class="form-lcbank-master-title">${modalTitle}</h2>
-        <p class="form-lcbank-master-subtitle">${modalText}</p>
-        <form action="#" method="post" novalidate id="form-lcbank" class="form-lcbank-form">
-          ${templateBuilder().input({
+    <div class="form-lcbank-modal-block">
+      ${templateBuilder().closeModal()}
+      <div class="form-lcbank-image-box">
+        <img src="${logoCompany}" alt="${company}" class="form-lcbank-image-logo">
+        <img src="${imageMoney}" alt="image-money" class="form-lcbank-image-money">
+      </div>
+      <div class="form-lcbank-master">
+        <div class="form-lcbank-master-container">
+          <h2 class="form-lcbank-master-title">${modalTitle}</h2>
+          <p class="form-lcbank-master-subtitle">${modalText}</p>
+          <form action="#" method="post" novalidate id="form-lcbank" class="form-lcbank-form">
+            ${templateBuilder().input({
     type: 'text',
+    required: true,
     name: 'name',
     placeholder: placeholderName,
     errorMessage: errorName,
     label: labelName
   })}
-          ${hasEmail && templateBuilder().input({
+            ${hasEmail && templateBuilder().input({
     type: 'email',
+    required: requiredEmail,
     name: 'email',
     placeholder: placeholderEmail,
     errorMessage: errorEmail,
     label: labelEmail
   })}
-          ${templateBuilder().input({
+            ${templateBuilder().input({
     type: 'text',
+    required: true,
     name: 'cpf',
     placeholder: placeholderCpf,
     errorMessage: errorCpf,
     label: labelCpf
   })}
-          ${templateBuilder().input({
+            ${templateBuilder().input({
     type: 'text',
+    required: true,
     name: 'phone',
     placeholder: placeholderPhone,
     errorMessage: errorPhone,
     label: labelPhone
   })}
-          ${printInputs}
-          ${templateBuilder().submitButton(labelButton)}
-          ${loadingBox().template}
-          ${resultBox().template}
-        </form>
-        <p class="form-lcbank-master-privacy">${modalPrivacy} <a href="${modalPrivacyLink}" target="_blank" rel="noopener noreferrer">${modalPrivacyText}</a></p>
-        <p class="form-lcbank-master-privacy">${modalFooterText}</p>
+            ${printInputs}
+            ${templateBuilder().submitButton(labelButton)}
+            ${loadingBox().template}
+            ${resultBox().template}
+          </form>
+          <p class="form-lcbank-master-privacy">${modalPrivacy} <a href="${modalPrivacyLink}" target="_blank" rel="noopener noreferrer">${modalPrivacyText}</a></p>
+          <p class="form-lcbank-master-privacy">${modalFooterText}</p>
+        </div>
       </div>
     </div>
   </div>`

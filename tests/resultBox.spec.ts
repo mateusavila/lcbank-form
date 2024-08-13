@@ -22,7 +22,6 @@ describe('resultBox', () => {
     resultBox().title()!.innerHTML = 'titulo'
     resultBox().text()!.innerHTML = 'texto'
 
-
     expect(title?.innerHTML).toBe('titulo')
     expect(text?.innerHTML).toBe('texto')
 

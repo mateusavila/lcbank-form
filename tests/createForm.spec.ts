@@ -49,7 +49,6 @@ describe('createForm', () => {
     expect(consoleErrorSpy).toHaveBeenCalledWith("O Elemento #form-lcbank-apply não existe na página")
   })
 
-
   it('should open and close the modal', () => {
     createForm()
 
@@ -62,13 +61,6 @@ describe('createForm', () => {
     expect(modal.classList.contains('active')).toBe(false)
     callToActions[1].click()
     expect(modal.classList.contains('active')).toBe(true)
-  })
-
-  it('should warning the user if the ID is wrong', () => {
-    document.body.innerHTML = `<div  id="form-rtv-errado"></div>`
-    const consoleErrorSpy = vi.spyOn(console, 'error')
-    createForm()
-    expect(consoleErrorSpy).toHaveBeenCalledWith("O Elemento #form-lcbank-apply não existe na página")
   })
 
   it('should create a form with default labels', () => {
@@ -93,8 +85,14 @@ describe('createForm', () => {
 
   it('should use custom labels from data attributes', () => {
     document.querySelector('#form-lcbank-apply')?.setAttribute('data-label-name', 'Nome Personalizado')
+    document.querySelector('#form-lcbank-apply')?.setAttribute('data-label-email', 'Email Personalizado')
+    document.querySelector('#form-lcbank-apply')?.setAttribute('data-label-phone', 'Telefone Personalizado')
+    document.querySelector('#form-lcbank-apply')?.setAttribute('data-label-cpf', 'CPF Personalizado')
     createForm()
     expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Personalizado')
+    expect(document.querySelector('#form-lcbank-label-email')?.textContent).toContain('Email Personalizado')
+    expect(document.querySelector('#form-lcbank-label-phone')?.textContent).toContain('Telefone Personalizado')
+    expect(document.querySelector('#form-lcbank-label-cpf')?.textContent).toContain('CPF Personalizado')
   })
 
   it('should update the images', () => {
@@ -132,6 +130,25 @@ describe('createForm', () => {
     createForm()
     const requiredFields = document.querySelectorAll('.form-lcbank-required')
     expect(requiredFields.length).toBe(4)
+  })
+
+  it('should hide the asterisk when e-mail is not required', () => {
+    document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
+      id="form-lcbank-apply" 
+      data-has-email="false" 
+      data-label-name="Nome Completo" 
+      data-label-cpf="CPF" 
+      data-label-phone="Telefone" 
+      data-page-title="Página do Desenvolvedor"
+      data-website="LCBank"
+      data-input-url="https://www.google.com.br/homepage"
+      data-input-site="https://www.google.com.br"
+      data-placeholder-phone="(99) 9999-9999" 
+      data-label-button="Enviar seus dados">
+    </div>`
+    createForm()
+    const requiredFields = document.querySelectorAll('.form-lcbank-required')
+    expect(requiredFields.length).toBe(3)
   })
 
   it('should hide the input email', () => {

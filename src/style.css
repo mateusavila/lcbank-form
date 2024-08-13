@@ -113,16 +113,12 @@
 
 .form-lcbank-modal {
   background: #fff;
-  display: flex;
-  justify-content: space-between;
+  overflow: auto;
   position: relative;
   box-sizing: border-box;
-  flex-wrap: wrap;
-  align-content: center;
   height: 100vh;
   width: 100%;
   top: 0;
-  min-height: 800px;
   visibility: hidden;
   opacity: 0;
   transform: translateX(100vw);
@@ -134,6 +130,15 @@
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+.form-lcbank-modal-block {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .form-lcbank-close {
@@ -244,7 +249,8 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  height: 100%;
+  min-height: 770px;
+  height: 100vh;
 }
 
 .form-lcbank-image-logo {
@@ -262,6 +268,7 @@
   height: 100%;
   display: flex;
   align-items: center;
+  
 }
 
 .form-lcbank-master-container {
