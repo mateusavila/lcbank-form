@@ -4,14 +4,13 @@ import { createForm } from '../src/createForm'
 describe('createForm', () => {
   beforeEach(() => {
     document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
-      id="form-rtv-apply" 
+      id="form-lcbank-apply" 
       data-has-email="true" 
       data-label-name="Nome Completo" 
       data-label-cpf="CPF" 
       data-label-phone="Telefone" 
       data-page-title="Página do Desenvolvedor"
       data-website="LCBank"
-      data-page-url="https://www.google.com.br/homepage"
       data-input-url="https://www.google.com.br/homepage"
       data-input-site="https://www.google.com.br"
       data-placeholder-phone="(99) 9999-9999" 
@@ -26,40 +25,17 @@ describe('createForm', () => {
 
   it('should show warning the developer if title is missing', () => {
     document.body.innerHTML = `<div 
-      id="form-rtv-apply">
+      id="form-lcbank-apply">
     </div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
     createForm()
     expect(consoleErrorSpy).toHaveBeenCalledWith("É necessário atribuir o título da página com data-page-title=\"Título da página\"")
   })
 
-  it('should show warning the developer if page-url is missing', () => {
-    document.body.innerHTML = `<div 
-      id="form-rtv-apply" 
-      data-website="LC Bank" data-page-title="Página do Desenvolvedor">
-    </div>`
-    const consoleErrorSpy = vi.spyOn(console, 'error')
-    createForm()
-    expect(consoleErrorSpy).toHaveBeenCalledWith("É necessário atribuir a URL da página com data-page-url=\"https://www.lcbank.com.br\". Esta URL precisa ser válida.")
-  })
-
-  it('should show warning the developer uses invalid url at page-url', () => {
-    document.body.innerHTML = `<div 
-      id="form-rtv-apply" 
-      data-website="LC Bank"
-      data-page-title="Página do Desenvolvedor"
-      data-page-url="https://www">
-    </div>`
-    const consoleErrorSpy = vi.spyOn(console, 'error')
-    createForm()
-    expect(consoleErrorSpy).toHaveBeenCalledWith("É necessário atribuir a URL da página com data-page-url=\"https://www.lcbank.com.br\". Esta URL precisa ser válida.")
-  })
-
   it('should show warning the developer if website is missing', () => {
     document.body.innerHTML = `<div 
-      id="form-rtv-apply" 
-      data-page-title="Página do Desenvolvedor"
-      data-page-url="https://www.lcbank.com">
+      id="form-lcbank-apply" 
+      data-page-title="Página do Desenvolvedor">
     </div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
     createForm()
@@ -70,7 +46,7 @@ describe('createForm', () => {
     document.body.innerHTML = `<div  id="form-rtv-errado"></div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
     createForm()
-    expect(consoleErrorSpy).toHaveBeenCalledWith("O Elemento #form-rtv-apply não existe na página")
+    expect(consoleErrorSpy).toHaveBeenCalledWith("O Elemento #form-lcbank-apply não existe na página")
   })
 
 
@@ -92,7 +68,7 @@ describe('createForm', () => {
     document.body.innerHTML = `<div  id="form-rtv-errado"></div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
     createForm()
-    expect(consoleErrorSpy).toHaveBeenCalledWith("O Elemento #form-rtv-apply não existe na página")
+    expect(consoleErrorSpy).toHaveBeenCalledWith("O Elemento #form-lcbank-apply não existe na página")
   })
 
   it('should create a form with default labels', () => {
@@ -116,21 +92,21 @@ describe('createForm', () => {
   })
 
   it('should use custom labels from data attributes', () => {
-    document.querySelector('#form-rtv-apply')?.setAttribute('data-label-name', 'Nome Personalizado')
+    document.querySelector('#form-lcbank-apply')?.setAttribute('data-label-name', 'Nome Personalizado')
     createForm()
     expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Personalizado')
   })
 
   it('should update the images', () => {
-    document.querySelector('#form-rtv-apply')?.setAttribute('data-logo-company', 'https://www.php.net/images/logos/php-logo.svg')
-    document.querySelector('#form-rtv-apply')?.setAttribute('data-image-money', 'https://www.google.com/logos/doodles/2024/paris-games-climbing-day-2-6753651837110565-law.gif')
+    document.querySelector('#form-lcbank-apply')?.setAttribute('data-logo-company', 'https://www.php.net/images/logos/php-logo.svg')
+    document.querySelector('#form-lcbank-apply')?.setAttribute('data-image-money', 'https://www.google.com/logos/doodles/2024/paris-games-climbing-day-2-6753651837110565-law.gif')
     createForm()
     expect((document.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://www.php.net/images/logos/php-logo.svg')
     expect((document.querySelector('.form-lcbank-image-money') as HTMLImageElement)?.src).toBe('https://www.google.com/logos/doodles/2024/paris-games-climbing-day-2-6753651837110565-law.gif')
   })
 
   it('should the placeholder is changed', () => {
-    document.querySelector('#form-rtv-apply')?.setAttribute('data-placeholder-cpf', 'Ex: 123.123.123-00')
+    document.querySelector('#form-lcbank-apply')?.setAttribute('data-placeholder-cpf', 'Ex: 123.123.123-00')
     createForm()
     const phoneInput = (document.querySelector('#form-lcbank-phone') as HTMLInputElement)?.placeholder
     const nameInput = (document.querySelector('#form-lcbank-name') as HTMLInputElement)?.placeholder
@@ -142,7 +118,7 @@ describe('createForm', () => {
   })
 
   it('should hide the placeholders', () => {
-    document.querySelector('#form-rtv-apply')?.setAttribute('data-hide-placeholder', 'true')
+    document.querySelector('#form-lcbank-apply')?.setAttribute('data-hide-placeholder', 'true')
     createForm()
     const phoneInput = (document.querySelector('#form-lcbank-phone') as HTMLInputElement)?.placeholder
     const nameInput = (document.querySelector('#form-lcbank-name') as HTMLInputElement)?.placeholder
@@ -159,7 +135,7 @@ describe('createForm', () => {
   })
 
   it('should hide the input email', () => {
-    document.querySelector('#form-rtv-apply')?.setAttribute('data-has-email', 'false')
+    document.querySelector('#form-lcbank-apply')?.setAttribute('data-has-email', 'false')
     createForm()
     expect(document.querySelector('#form-lcbank-email')).toBeNull()
   })
@@ -274,9 +250,8 @@ describe('createForm', () => {
 
   it('should use default labels when no custom labels are provided', () => {
     document.body.innerHTML = `
-      <div id="form-rtv-apply" data-page-title="Página do Desenvolvedor"
-      data-website="LC Bank"
-      data-page-url="https://www.google.com.br/homepage"></div>
+      <div id="form-lcbank-apply" data-page-title="Página do Desenvolvedor"
+      data-website="LC Bank"></div>
     `
     createForm()
 
@@ -287,13 +262,12 @@ describe('createForm', () => {
 
   it('should use custom labels when provided', () => {
     document.body.innerHTML = `
-      <div id="form-rtv-apply"
+      <div id="form-lcbank-apply"
         data-has-email="true"
         data-label-name="Nome Personalizado"
         data-label-cpf="CPF Personalizado"
         data-label-phone="Telefone Personalizado"
         data-page-title="Página do Desenvolvedor"
-        data-page-url="https://www.google.com.br/homepage"
         data-website="LC Bank"
         data-label-email="E-mail Personalizado">
       </div>
@@ -308,10 +282,9 @@ describe('createForm', () => {
 
   it('should use a mix of default and custom labels', () => {
     document.body.innerHTML = `
-      <div id="form-rtv-apply"
+      <div id="form-lcbank-apply"
       data-website="LC Bank"
         data-page-title="Página do Desenvolvedor"
-        data-page-url="https://www.google.com.br/homepage"
         data-label-name="Nome Personalizado"
         data-label-cpf="CPF Personalizado">
       </div>
