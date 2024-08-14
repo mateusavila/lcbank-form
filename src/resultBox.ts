@@ -5,10 +5,6 @@ export function resultBox() {
   const end = () => resultBox.classList.remove('active')
   const title = () => resultBox.querySelector('#form-lcbank-result-title')
   const text = () => resultBox.querySelector('#form-lcbank-result-text')
-  const button = () => document.querySelector('#form-lcbank-result-button')?.addEventListener('click', function (event) {
-    event.preventDefault()
-    end()
-  })
 
   const template = `<div class="form-lcbank-result" id="form-lcbank-result">
     <div class="form-lcbank-result-info">
@@ -18,7 +14,7 @@ export function resultBox() {
   </div>`
 
   return {
-    start, end, template, title, text, button
+    start, end, template, title, text
   }
 }
 

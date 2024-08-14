@@ -26,15 +26,4 @@ describe('resultBox', () => {
     expect(text?.innerHTML).toBe('texto')
 
   })
-
-  it('should button activate when pressed', () => {
-    document.body.innerHTML = `<button id="form-lcbank-result-button">apertar</button>${resultBox().template}`
-    const button: HTMLButtonElement = document.querySelector('#form-lcbank-result-button')!
-    resultBox().button()
-    resultBox().start()
-    button.click()
-
-    const result = document.querySelector('#form-lcbank-result')
-    expect(result?.classList.contains('active')).toBe(false)
-  })
 })
