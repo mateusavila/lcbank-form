@@ -2,8 +2,10 @@ import { filterObject } from "./filterObject"
 import { loadingBox } from "./loadingBox"
 import { processForm } from "./processForm"
 import { ValidateForm } from "./types"
+import { validate } from "./validate"
 import { validateCPF } from "./validateCPF"
-import { validateEmail } from "./validateEmail"
+import { shouldEvaluateEmail, validateEmail } from "./validateEmail"
+import { validateName } from "./validateName"
 import { validatePhoneNumber } from "./validatePhone"
 
 
@@ -24,8 +26,6 @@ export const validateForm = (options: ValidateForm) => {
       return fields
     }
 
-    const requiredField = (field: string) => field.length
-
     const fieldName = document.getElementById('form-lcbank-name')
     const fieldCpf = document.getElementById('form-lcbank-cpf')
     const fieldPhone = document.getElementById('form-lcbank-phone')
@@ -42,33 +42,41 @@ export const validateForm = (options: ValidateForm) => {
       /* v8 ignore next 1 */
       fields.extra = JSON.stringify(filterObject(fields)) ?? ''
 
-      if (!requiredField(fields.name)) {
-        fieldName?.classList.add('error')
-        errors++
-      } else {
-        fieldName?.classList.add('success')
-      }
+      const arrFields = [
+        {
+          input: fieldName as HTMLInputElement,
+          validator: validateName
+        },
+        {
+          input: fieldEmail as HTMLInputElement,
+          validator: validateEmail
+        },
+        {
+          input: fieldCpf as HTMLInputElement,
+          validator: validateCPF
+        },
+        {
+          input: fieldPhone as HTMLInputElement,
+          validator: validatePhoneNumber
+        },
+      ]
 
-      if (!validateCPF(fields.cpf)) {
-        fieldCpf?.classList.add('error')
-        errors++
-      } else {
-        fieldCpf?.classList.add('success')
-      }
-
-      if (!validatePhoneNumber(fields.phone)) {
-        fieldPhone?.classList.add('error')
-        errors++
-      } else {
-        fieldPhone?.classList.add('success')
-      }
-
-      if (hasEmail && requiredEmail && !validateEmail(fields.email)) {
-        fieldEmail?.classList.add('error')
-        errors++
-      } else {
-        fieldEmail?.classList.add('success')
-      }
+      arrFields.map(({ input, validator }, index) => {
+        if (input && index !== 1) {
+          if (!validate({
+            input, validator
+          })) {
+            errors++
+          }
+        }
+        if (shouldEvaluateEmail(input, { hasEmail, requiredEmail })) {
+          if (!validate({
+            input, validator
+          })) {
+            errors++
+          }
+        }
+      })
 
       if (errors > 0) {
         return console.log('tem erros no form')
@@ -80,6 +88,11 @@ export const validateForm = (options: ValidateForm) => {
         }
       })
       loadingBox().startLoading()
+
+      /* v8 ignore next 3 */
+      if (fields.email.length === 0) {
+        fields.email = `${fields.cpf}@gmail.com`
+      }
       return processForm(fields, goTo)
     })
   }

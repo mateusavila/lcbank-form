@@ -72,15 +72,12 @@ describe('createForm', () => {
     expect(document.querySelector('#form-lcbank-label-button')?.textContent).toContain('Enviar seus dados')
     expect(document.querySelector('#form-lcbank-label-phone')?.textContent).toContain('Telefone')
 
-    expect((document.querySelector('.form-lcbank-image-money') as HTMLImageElement)?.src).toBe('https://precatorioestadual.com.br/wp-content/uploads/2024/08/money-desktop.png')
-    expect((document.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://precatorioestadual.com.br/wp-content/uploads/2024/08/logotipo.png')
+    expect((document.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://lcbform.com.br/wp-content/uploads/2024/08/logotipo.png')
 
-    expect(document.querySelector('.form-lcbank-master-title')?.textContent).toContain('Solicite a antecipação')
-    expect(document.querySelector('.form-lcbank-master-subtitle')?.textContent).toContain('Preencha o formulário para que nossos especialistas consultem seu processo:')
+    expect(document.querySelector('.form-lcbank-master-title')?.textContent).toContain('Complete os campos para que nossos \n especialistas consultem o seu processo')
     expect(document.querySelectorAll('.form-lcbank-master-privacy')[0]?.textContent).toContain('Ao enviar meus dados, eu concordo com a')
     expect(document.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.textContent).toContain('Política de Privacidade')
     expect(document.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.href).toBe('https://google.com.br/')
-    expect(document.querySelectorAll('.form-lcbank-master-privacy')[1]?.textContent).toContain('*Após a assinatura do contrato.')
   })
 
   it('should use custom labels from data attributes', () => {
@@ -97,10 +94,9 @@ describe('createForm', () => {
 
   it('should update the images', () => {
     document.querySelector('#form-lcbank-apply')?.setAttribute('data-logo-company', 'https://www.php.net/images/logos/php-logo.svg')
-    document.querySelector('#form-lcbank-apply')?.setAttribute('data-image-money', 'https://www.google.com/logos/doodles/2024/paris-games-climbing-day-2-6753651837110565-law.gif')
     createForm()
     expect((document.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://www.php.net/images/logos/php-logo.svg')
-    expect((document.querySelector('.form-lcbank-image-money') as HTMLImageElement)?.src).toBe('https://www.google.com/logos/doodles/2024/paris-games-climbing-day-2-6753651837110565-law.gif')
+
   })
 
   it('should the placeholder is changed', () => {
@@ -164,7 +160,14 @@ describe('createForm', () => {
     expect(submitButton?.textContent).toBe('Enviar seus dados')
   })
 
-  it('should have at least 2 input hidden fields', () => {
+  it('should have at least 2 helpers', () => {
+    createForm()
+    const helpers = document.querySelectorAll('.form-lcbank-helper')
+    expect(helpers).not.toBeNull()
+    expect(helpers.length).toBe(2)
+  })
+
+  it('should have at least 5 input hidden fields', () => {
     createForm()
     const requiredFields = document.querySelectorAll('input[type="hidden"]')
     expect(requiredFields.length).toBe(5)
@@ -274,7 +277,7 @@ describe('createForm', () => {
 
     expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Completo')
     expect(document.querySelector('#form-lcbank-label-cpf')?.textContent).toContain('CPF')
-    expect(document.querySelector('#form-lcbank-label-phone')?.textContent).toContain('Telefone')
+    expect(document.querySelector('#form-lcbank-label-phone')?.textContent).toContain('WhatsApp')
   })
 
   it('should use custom labels when provided', () => {
@@ -310,7 +313,7 @@ describe('createForm', () => {
 
     expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Personalizado')
     expect(document.querySelector('#form-lcbank-label-cpf')?.textContent).toContain('CPF Personalizado')
-    expect(document.querySelector('#form-lcbank-label-phone')?.textContent).toContain('Telefone')
+    expect(document.querySelector('#form-lcbank-label-phone')?.textContent).toContain('WhatsApp')
   })
 
   // it('should log the current URL', () => {

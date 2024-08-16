@@ -8,6 +8,11 @@ import { ValidateForm } from './types'
 import { loadingBox } from './loadingBox'
 import { resultBox } from './resultBox'
 import { templateBuilder } from './templateBuilder'
+import { validateFieldBlur } from './validateFieldBlur'
+import { validateCPF } from './validateCPF'
+import { validatePhoneNumber } from './validatePhone'
+import { validateName } from './validateName'
+import { validateEmail } from './validateEmail'
 
 export const createForm = () => {
   const block = document.querySelector<HTMLDivElement>('#form-lcbank-apply')
@@ -53,11 +58,13 @@ export const createForm = () => {
   const requiredEmail = data.requiredEmail !== 'false'
 
   const company = data.company ?? 'LC Bank'
-  const logoCompany = data.logoCompany ?? 'https://precatorioestadual.com.br/wp-content/uploads/2024/08/logotipo.png'
-  const imageMoney = data.imageMoney ?? 'https://precatorioestadual.com.br/wp-content/uploads/2024/08/money-desktop.png'
+  const logoCompany = data.logoCompany ?? 'https://lcbform.com.br/wp-content/uploads/2024/08/logotipo.png'
+  const imageTitle = data.imageTitle ?? `Solicite a antecipação\n e receba o dinheiro da\n sua RPV em 24h!`
+  const titleMobile = data.titleMobile ?? `Antecipe agora<br> o dinheiro da sua RPV`
+  const imageText = data.imageTitle ?? `*Após a assinatura do contrato. `
   const labelName = data.labelName ?? 'Nome Completo'
   const labelCpf = data.labelCpf ?? 'CPF'
-  const labelPhone = data.labelPhone ?? 'Telefone'
+  const labelPhone = data.labelPhone ?? 'WhatsApp'
   const labelEmail = data.labelEmail ?? 'E-mail'
 
   const errorName = data.errorName ?? 'Nome é um campo obrigatório'
@@ -66,30 +73,31 @@ export const createForm = () => {
   const errorEmail = data.errorPhone ?? 'E-mail é um campo obrigatório'
 
   const placeholderName = !hidePlaceholder ? data.placeholderName ?? 'Ex: José Maria da Silva' : ''
-  const placeholderCpf = !hidePlaceholder ? data.placeholderCpf ?? 'CPF' : ''
+  const placeholderCpf = !hidePlaceholder ? data.placeholderCpf ?? '000.000.000-00' : ''
   const placeholderPhone = !hidePlaceholder ? data.placeholderPhone ?? 'Telefone' : ''
   const placeholderEmail = !hidePlaceholder ? data.placeholderPhone ?? 'E-mail' : ''
   const labelButton = data.labelButton ?? 'Bora antecipar'
 
-  const modalTitle = data.modalTitle ?? 'Solicite a antecipação <br> e receba o dinheiro da sua RPV em 24h!'
-  const modalText = data.modalText ?? 'Preencha o formulário para que nossos especialistas consultem seu processo:'
+  const modalTitle = data.modalTitle ?? 'Complete os campos para que nossos \n especialistas consultem o seu processo'
 
   const modalPrivacy = data.modalPrivacy ?? 'Ao enviar meus dados, eu concordo com a'
   const modalPrivacyLink = data.modalPrivacyLink ?? 'https://google.com.br'
   const modalPrivacyText = data.modalPrivacyText ?? 'Política de Privacidade'
-  const modalFooterText = data.modalFooterText ?? '*Após a assinatura do contrato.'
 
   const template = `<div class="form-lcbank-modal" id="form-lcbank-modal">
     <div class="form-lcbank-modal-block">
       ${templateBuilder().closeModal()}
       <div class="form-lcbank-image-box">
-        <img src="${logoCompany}" alt="${company}" class="form-lcbank-image-logo">
-        <img src="${imageMoney}" alt="image-money" class="form-lcbank-image-money">
+        <div class="form-lcbank-image-box-info">
+          <img src="${logoCompany}" alt="${company}" class="form-lcbank-image-logo">
+          <p class="form-lcbank-image-logo-title">${imageTitle}</p>
+          </div>
+          <p class="form-lcbank-image-logo-text">${imageText}</p>
       </div>
       <div class="form-lcbank-master">
         <div class="form-lcbank-master-container">
-          <h2 class="form-lcbank-master-title">${modalTitle}</h2>
-          <p class="form-lcbank-master-subtitle">${modalText}</p>
+          <h2 class="form-lcbank-master-mobile-title">${titleMobile}</h2>
+          <p class="form-lcbank-master-title">${modalTitle}</p>
           <form action="#" method="post" novalidate id="form-lcbank" class="form-lcbank-form">
             ${templateBuilder().input({
     type: 'text',
@@ -113,7 +121,8 @@ export const createForm = () => {
     name: 'cpf',
     placeholder: placeholderCpf,
     errorMessage: errorCpf,
-    label: labelCpf
+    label: labelCpf,
+    helper: 'O seu CPF nos ajuda a localizar e analisar o seu processo.'
   })}
             ${templateBuilder().input({
     type: 'text',
@@ -121,7 +130,8 @@ export const createForm = () => {
     name: 'phone',
     placeholder: placeholderPhone,
     errorMessage: errorPhone,
-    label: labelPhone
+    label: labelPhone,
+    helper: 'Insira um numero válido.'
   })}
             ${printInputs}
             ${templateBuilder().submitButton(labelButton)}
@@ -129,7 +139,6 @@ export const createForm = () => {
             ${resultBox().template}
           </form>
           <p class="form-lcbank-master-privacy">${modalPrivacy} <a href="${modalPrivacyLink}" target="_blank" rel="noopener noreferrer">${modalPrivacyText}</a></p>
-          <p class="form-lcbank-master-privacy">${modalFooterText}</p>
         </div>
       </div>
     </div>
@@ -140,9 +149,48 @@ export const createForm = () => {
   // adiciona os controles de abertura de modal
   modalBox()
 
+  // fields
+  const cpfField: HTMLInputElement = document.querySelector('#form-lcbank-cpf')!
+  const phoneField: HTMLInputElement = document.querySelector('#form-lcbank-phone')!
+  const nameField: HTMLInputElement = document.querySelector('#form-lcbank-name')!
+  const emailField: HTMLInputElement | null = document.querySelector('#form-lcbank-email') ?? null
+
   // aplicar as máscaras
-  maskCPF(document.querySelector('#form-lcbank-cpf')!)
-  maskPhone(document.querySelector('#form-lcbank-phone')!)
+  maskCPF(cpfField)
+  maskPhone(phoneField)
+
+  // validate blur
+  validateFieldBlur({
+    input: cpfField,
+    validator: validateCPF,
+    hasEmail,
+    requiredEmail,
+    isEmail: false
+  })
+  validateFieldBlur({
+    input: phoneField,
+    validator: validatePhoneNumber,
+    hasEmail,
+    requiredEmail,
+    isEmail: false
+  })
+  validateFieldBlur({
+    input: nameField,
+    validator: validateName,
+    hasEmail,
+    requiredEmail,
+    isEmail: false
+  })
+
+  if (emailField) {
+    validateFieldBlur({
+      input: emailField!,
+      validator: validateEmail,
+      hasEmail,
+      requiredEmail,
+      isEmail: true
+    })
+  }
 
   // validar o formulário
   const optionsValidateForm: ValidateForm = {
