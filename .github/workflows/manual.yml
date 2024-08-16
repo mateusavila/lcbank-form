@@ -42,7 +42,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: latest
-          name: Release ${{ github.run_number }}
+          name: Release latest
           draft: false
           prerelease: false
           files: |
