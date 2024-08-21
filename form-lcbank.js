@@ -23,7 +23,7 @@
           <p class="form-lcbank-master-title">${F}</p>
           <form action="#" method="post" novalidate id="form-lcbank" class="form-lcbank-form">
             ${p().input({type:"text",required:!0,name:"name",placeholder:C,errorMessage:E,label:N})}
-            ${c&&p().input({type:"email",required:s,name:"email",placeholder:R,errorMessage:D,label:Y})}
+            ${c?p().input({type:"email",required:s,name:"email",placeholder:R,errorMessage:D,label:Y}):""}
             ${p().input({type:"text",required:!0,name:"cpf",placeholder:U,errorMessage:V,label:k,helper:"O seu CPF nos ajuda a localizar e analisar o seu processo."})}
             ${p().input({type:"text",required:!0,name:"phone",placeholder:A,errorMessage:B,label:T,helper:"Insira um numero válido."})}
             ${n}
