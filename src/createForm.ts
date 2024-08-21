@@ -107,14 +107,14 @@ export const createForm = () => {
     errorMessage: errorName,
     label: labelName
   })}
-            ${hasEmail && templateBuilder().input({
+            ${hasEmail ? templateBuilder().input({
     type: 'email',
     required: requiredEmail,
     name: 'email',
     placeholder: placeholderEmail,
     errorMessage: errorEmail,
     label: labelEmail
-  })}
+  }) : ''}
             ${templateBuilder().input({
     type: 'text',
     required: true,

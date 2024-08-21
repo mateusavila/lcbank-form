@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1723773071200" clover="3.2.0">
-  <project timestamp="1723773071200" name="All files">
-    <metrics statements="460" coveredstatements="456" conditionals="169" coveredconditionals="167" methods="35" coveredmethods="35" elements="664" coveredelements="658" complexity="0" loc="460" ncloc="460" packages="1" files="21" classes="21"/>
+<coverage generated="1724250055338" clover="3.2.0">
+  <project timestamp="1724250055338" name="All files">
+    <metrics statements="460" coveredstatements="456" conditionals="170" coveredconditionals="168" methods="35" coveredmethods="35" elements="665" coveredelements="659" complexity="0" loc="460" ncloc="460" packages="1" files="21" classes="21"/>
     <file name="collectionInput.ts" path="/Users/mateus/Projetos/lucas/form/src/collectionInput.ts">
       <metrics statements="6" coveredstatements="6" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
       <line num="3" count="1" type="cond" truecount="1" falsecount="0"/>
@@ -12,7 +12,7 @@
       <line num="8" count="34" type="stmt"/>
     </file>
     <file name="createForm.ts" path="/Users/mateus/Projetos/lucas/form/src/createForm.ts">
-      <metrics statements="155" coveredstatements="155" conditionals="45" coveredconditionals="45" methods="1" coveredmethods="1"/>
+      <metrics statements="155" coveredstatements="155" conditionals="46" coveredconditionals="46" methods="1" coveredmethods="1"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
@@ -99,7 +99,7 @@
       <line num="114" count="16" type="stmt"/>
       <line num="115" count="16" type="stmt"/>
       <line num="116" count="16" type="stmt"/>
-      <line num="117" count="23" type="stmt"/>
+      <line num="117" count="23" type="cond" truecount="1" falsecount="0"/>
       <line num="118" count="23" type="stmt"/>
       <line num="119" count="23" type="stmt"/>
       <line num="120" count="23" type="stmt"/>
