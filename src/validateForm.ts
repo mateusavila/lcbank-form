@@ -90,7 +90,7 @@ export const validateForm = (options: ValidateForm) => {
       loadingBox().startLoading()
 
       /* v8 ignore next 3 */
-      if (fields.email.length === 0) {
+      if (!fields.email || fields.email.length === 0) {
         fields.email = `${fields.cpf}@gmail.com`
       }
       return processForm(fields, goTo)
