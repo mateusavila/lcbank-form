@@ -14,7 +14,7 @@ export interface ValidateForm extends EmailOptions {
 export interface InputFieldInterface {
   name: string
   label: string
-  type: 'text' | 'email'
+  type?: 'text' | 'email'
   placeholder: string
   errorMessage: string
   required: boolean

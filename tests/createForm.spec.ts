@@ -6,6 +6,7 @@ describe('createForm', () => {
     document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
       id="form-lcbank-apply" 
       data-has-email="true" 
+      data-mode="modal"
       data-label-name="Nome Completo" 
       data-label-cpf="CPF" 
       data-label-phone="Telefone" 
@@ -314,6 +315,29 @@ describe('createForm', () => {
     expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Personalizado')
     expect(document.querySelector('#form-lcbank-label-cpf')?.textContent).toContain('CPF Personalizado')
     expect(document.querySelector('#form-lcbank-label-phone')?.textContent).toContain('WhatsApp')
+  })
+
+  // validando o modo form
+  it('should use custom labels when provided', () => {
+    document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
+      id="form-lcbank-apply" 
+      data-has-email="true" 
+      data-mode="form"
+      data-label-name="Nome Completo" 
+      data-label-cpf="CPF" 
+      data-label-phone="Telefone" 
+      data-page-title="Página do Desenvolvedor"
+      data-website="LCBank"
+      data-input-url="https://www.google.com.br/homepage"
+      data-input-site="https://www.google.com.br"
+      data-placeholder-phone="(99) 9999-9999" 
+      data-label-button="Enviar seus dados">
+    </div>`
+    createForm()
+
+    expect(document.querySelector('.form-lcbank-master-privacy')).toBeNull()
+    expect(document.querySelector('#form-lcbank-modal')).toBeNull()
+
   })
 
   // it('should log the current URL', () => {
