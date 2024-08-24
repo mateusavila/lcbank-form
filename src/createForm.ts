@@ -26,6 +26,7 @@ export const createForm = () => {
   // campos obrigatórios
   const pageTitle = data.pageTitle?.length
   const website = data.website?.length
+  const mode: 'modal' | 'form' = data.mode?.length ? data.mode as 'modal' | 'form' : 'modal'
 
   if (!pageTitle) {
     console.error("É necessário atribuir o título da página com data-page-title=\"Título da página\"")
@@ -84,12 +85,12 @@ export const createForm = () => {
   const modalPrivacyLink = data.modalPrivacyLink ?? 'https://google.com.br'
   const modalPrivacyText = data.modalPrivacyText ?? 'Política de Privacidade'
 
-  const template = `<div class="form-lcbank-modal" id="form-lcbank-modal">
+  const headerTemplate = mode === 'modal' ? `<div class="form-lcbank-modal" id="form-lcbank-modal">
     <div class="form-lcbank-modal-block">
       ${templateBuilder().closeModal()}
       <div class="form-lcbank-image-box">
         <div class="form-lcbank-image-box-info">
-          <img src="${logoCompany}" alt="${company}" class="form-lcbank-image-logo">
+          <img src="${logoCompany}" alt="${company}" class="form-lcbank-image-logo" loading="lazy">
           <p class="form-lcbank-image-logo-title">${imageTitle}</p>
           </div>
           <p class="form-lcbank-image-logo-text">${imageText}</p>
@@ -97,17 +98,24 @@ export const createForm = () => {
       <div class="form-lcbank-master">
         <div class="form-lcbank-master-container">
           <h2 class="form-lcbank-master-mobile-title">${titleMobile}</h2>
-          <p class="form-lcbank-master-title">${modalTitle}</p>
-          <form action="#" method="post" novalidate id="form-lcbank" class="form-lcbank-form">
-            ${templateBuilder().input({
-    type: 'text',
+          <p class="form-lcbank-master-title">${modalTitle}</p>` : ''
+
+  const footerTemplate = mode === 'modal' ? `<p class="form-lcbank-master-privacy">${modalPrivacy} <a href="${modalPrivacyLink}" target="_blank" rel="noopener noreferrer">${modalPrivacyText}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>` : ''
+
+  const template = `${headerTemplate}
+    <form action="#" method="post" novalidate id="form-lcbank" class="form-lcbank-form">
+  ${templateBuilder().input({
     required: true,
     name: 'name',
     placeholder: placeholderName,
     errorMessage: errorName,
     label: labelName
   })}
-            ${hasEmail ? templateBuilder().input({
+  ${hasEmail ? templateBuilder().input({
     type: 'email',
     required: requiredEmail,
     name: 'email',
@@ -115,8 +123,7 @@ export const createForm = () => {
     errorMessage: errorEmail,
     label: labelEmail
   }) : ''}
-            ${templateBuilder().input({
-    type: 'text',
+  ${templateBuilder().input({
     required: true,
     name: 'cpf',
     placeholder: placeholderCpf,
@@ -124,8 +131,7 @@ export const createForm = () => {
     label: labelCpf,
     helper: 'O seu CPF nos ajuda a localizar e analisar o seu processo.'
   })}
-            ${templateBuilder().input({
-    type: 'text',
+  ${templateBuilder().input({
     required: true,
     name: 'phone',
     placeholder: placeholderPhone,
@@ -133,16 +139,12 @@ export const createForm = () => {
     label: labelPhone,
     helper: 'Insira um numero válido.'
   })}
-            ${printInputs}
-            ${templateBuilder().submitButton(labelButton)}
-            ${loadingBox().template}
-            ${resultBox().template}
-          </form>
-          <p class="form-lcbank-master-privacy">${modalPrivacy} <a href="${modalPrivacyLink}" target="_blank" rel="noopener noreferrer">${modalPrivacyText}</a></p>
-        </div>
-      </div>
-    </div>
-  </div>`
+    ${printInputs}
+    ${templateBuilder().submitButton(labelButton)}
+    ${loadingBox().template}
+    ${resultBox().template}
+    </form>
+  ${footerTemplate}`
 
   block.innerHTML = template
 

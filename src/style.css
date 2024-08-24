@@ -274,6 +274,7 @@
   border-radius: var(--form-lcbank-form-round) !important;
   padding: var(--form-lcbank-form-padding) !important;
   margin: var(--form-lcbank-form-margin) !important;
+  font-family: var(--form-lcbank-master-font) !important;
 }
 .form-lcbank-field {
   margin: var(--form-lcbank-field-margin) !important;
