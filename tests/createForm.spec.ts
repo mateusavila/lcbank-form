@@ -24,6 +24,39 @@ describe('createForm', () => {
     })
   })
 
+  it('should show more than 1 form in the page', () => {
+    document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
+      data-form-lcbank-apply 
+      data-has-email="true" 
+      data-mode="modal"
+      data-label-name="Nome Completo" 
+      data-label-cpf="CPF" 
+      data-label-phone="Telefone" 
+      data-page-title="Página do Desenvolvedor"
+      data-website="LCBank"
+      data-input-url="https://www.google.com.br/homepage"
+      data-input-site="https://www.google.com.br"
+      data-placeholder-phone="(99) 9999-9999" 
+      data-label-button="Enviar seus dados">
+    </div><div 
+      data-form-lcbank-apply 
+      data-mode="modal"
+      data-label-name="Nome Completo" 
+      data-label-cpf="CPF" 
+      data-label-phone="Telefone" 
+      data-page-title="Página do Desenvolvedor"
+      data-website="LCBank"
+      data-input-url="https://www.google.com.br/homepage"
+      data-input-site="https://www.google.com.br"
+      data-placeholder-phone="(99) 9999-9999" 
+      data-label-button="Enviar seus dados">
+    </div>`
+
+    const formsHTML = document.querySelectorAll('[data-form-lcbank-apply]')
+    expect(formsHTML.length).toBe(2)
+  })
+
+
   it('should show warning the developer if title is missing', () => {
     document.body.innerHTML = `<div 
       data-form-lcbank-apply>
