@@ -9,6 +9,7 @@ export interface EmailOptions {
 }
 export interface ValidateForm extends EmailOptions {
   goTo: string
+  form: HTMLFormElement
 }
 
 export interface InputFieldInterface {

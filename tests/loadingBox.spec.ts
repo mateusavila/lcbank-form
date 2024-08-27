@@ -1,16 +1,32 @@
 // urlQuery.test.js
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { loadingBox } from '../src/loadingBox'
+import { createForm } from '../src/createForm'
 
 describe('loadingBox', () => {
-  it('should loading appears on screen', () => {
-    document.body.innerHTML = `<div 
-    id="form-lcbank-loading">
+  beforeEach(() => {
+    document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
+      data-form-lcbank-apply 
+      data-has-email="true" 
+      data-mode="modal"
+      data-label-name="Nome Completo" 
+      data-label-cpf="CPF" 
+      data-label-phone="Telefone" 
+      data-page-title="Página do Desenvolvedor"
+      data-website="LCBank"
+      data-input-url="https://www.google.com.br/homepage"
+      data-input-site="https://www.google.com.br"
+      data-placeholder-phone="(99) 9999-9999" 
+      data-label-button="Enviar seus dados">
     </div>`
-    const loading = document.querySelector('#form-lcbank-loading')
-    loadingBox().startLoading()
+    createForm()
+  })
+  it('should loading appears on screen', () => {
+
+    const loading: HTMLElement = document.querySelector('[data-loading]')!
+    loadingBox(loading).startLoading()
     expect(loading?.classList.contains('active')).toBe(true)
-    loadingBox().endLoading()
+    loadingBox(loading).endLoading()
     expect(loading?.classList.contains('active')).toBe(false)
   })
 })

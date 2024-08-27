@@ -2,9 +2,9 @@
 import { loadingBox } from "./loadingBox"
 import { resultBox } from "./resultBox"
 
-export const processForm = async (fields: Record<string, string>, goTo: string) => {
+export const processForm = async (fields: Record<string, string>, goTo: string, form: HTMLFormElement) => {
 
-  const { start, title, text, end } = resultBox()
+  const { start, title, text, end } = resultBox(form.querySelector('[data-result]')!)
   // button()
 
   // await fetch('http://localhost:8000/wp-json/api/contact-form', {
@@ -14,7 +14,7 @@ export const processForm = async (fields: Record<string, string>, goTo: string) 
   })
     .then((response: any) => response.json())
     .then((response: any) => {
-      loadingBox().endLoading()
+      loadingBox(form.querySelector('[data-loading]')!).endLoading()
       if (response.status !== 200) {
 
         title()!.innerHTML = response.title
@@ -23,7 +23,7 @@ export const processForm = async (fields: Record<string, string>, goTo: string) 
       }
       if (response.status === 200) {
         end()
-        loadingBox().endLoading()
+        loadingBox(form.querySelector('[data-loading]')!).endLoading()
         window.location.href = goTo
       }
     })

@@ -150,6 +150,7 @@
   transform: translateX(100vw) !important;
   position: fixed !important;
   transition: all .5s ease-in-out !important;
+  z-index: 1000;
   &.active {
     transition: all .5s ease-in-out !important;
     transform: translateX(0) !important;

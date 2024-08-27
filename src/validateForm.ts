@@ -11,9 +11,8 @@ import { validatePhoneNumber } from "./validatePhone"
 
 export const validateForm = (options: ValidateForm) => {
 
-  const { requiredEmail, goTo, hasEmail } = options
+  const { requiredEmail, goTo, hasEmail, form } = options
 
-  const form: HTMLElement = document.getElementById('form-lcbank')!
   if (form) {
     // capturar todos os inputs
     const createJsonObject = (form: HTMLFormElement) => {
@@ -26,10 +25,10 @@ export const validateForm = (options: ValidateForm) => {
       return fields
     }
 
-    const fieldName = document.getElementById('form-lcbank-name')
-    const fieldCpf = document.getElementById('form-lcbank-cpf')
-    const fieldPhone = document.getElementById('form-lcbank-phone')
-    const fieldEmail = document.getElementById('form-lcbank-email') ?? null
+    const fieldName: HTMLInputElement = form.querySelector('[data-field-name]')!
+    const fieldCpf: HTMLInputElement = form.querySelector('[data-field-cpf]')!
+    const fieldPhone: HTMLInputElement = form.querySelector('[data-field-phone]')!
+    const fieldEmail: HTMLInputElement | null = form.querySelector('[data-field-email]') ?? null
 
     const resetCSSInputs = (input: HTMLElement) => input.classList.remove('error', 'success')
 
@@ -87,13 +86,13 @@ export const validateForm = (options: ValidateForm) => {
           (field as HTMLInputElement).disabled = true
         }
       })
-      loadingBox().startLoading()
+      loadingBox(form.querySelector('[data-loading]')!).startLoading()
 
       /* v8 ignore next 3 */
       if (!fields.email || fields.email.length === 0) {
         fields.email = `${fields.cpf}@gmail.com`
       }
-      return processForm(fields, goTo)
+      return processForm(fields, goTo, form)
     })
   }
 }

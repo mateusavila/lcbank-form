@@ -4,7 +4,7 @@ import { createForm } from '../src/createForm'
 describe('createForm', () => {
   beforeEach(() => {
     document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
-      id="form-lcbank-apply" 
+      data-form-lcbank-apply 
       data-has-email="true" 
       data-mode="modal"
       data-label-name="Nome Completo" 
@@ -26,7 +26,7 @@ describe('createForm', () => {
 
   it('should show warning the developer if title is missing', () => {
     document.body.innerHTML = `<div 
-      id="form-lcbank-apply">
+      data-form-lcbank-apply>
     </div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
     createForm()
@@ -35,7 +35,7 @@ describe('createForm', () => {
 
   it('should show warning the developer if website is missing', () => {
     document.body.innerHTML = `<div 
-      id="form-lcbank-apply" 
+      data-form-lcbank-apply 
       data-page-title="Página do Desenvolvedor">
     </div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
@@ -47,7 +47,7 @@ describe('createForm', () => {
     document.body.innerHTML = `<div  id="form-rtv-errado"></div>`
     const consoleErrorSpy = vi.spyOn(console, 'error')
     createForm()
-    expect(consoleErrorSpy).toHaveBeenCalledWith("O Elemento #form-lcbank-apply não existe na página")
+    expect(consoleErrorSpy).toHaveBeenCalledWith("O Elemento [data-form-lcbank-apply] não existe na página")
   })
 
   it('should open and close the modal', () => {
@@ -66,26 +66,28 @@ describe('createForm', () => {
 
   it('should create a form with default labels', () => {
     createForm()
-    const form = document.querySelector('#form-lcbank')
+    const form: HTMLFormElement = document.querySelector('[data-form-lcbank]')!
+    const modalParent = form.parentElement?.parentElement?.parentElement?.parentElement!
+    console.log(modalParent)
     expect(form).not.toBeNull()
-    expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Completo')
-    expect(document.querySelector('#form-lcbank-label-cpf')?.textContent).toContain('CPF')
-    expect(document.querySelector('#form-lcbank-label-button')?.textContent).toContain('Enviar seus dados')
-    expect(document.querySelector('#form-lcbank-label-phone')?.textContent).toContain('Telefone')
+    expect(form.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Completo')
+    expect(form.querySelector('#form-lcbank-label-cpf')?.textContent).toContain('CPF')
+    expect(form.querySelector('#form-lcbank-label-button')?.textContent).toContain('Enviar seus dados')
+    expect(form.querySelector('#form-lcbank-label-phone')?.textContent).toContain('Telefone')
 
-    expect((document.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://lcbform.com.br/wp-content/uploads/2024/08/logotipo.png')
+    expect((modalParent.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://lcbform.com.br/wp-content/uploads/2024/08/logotipo.png')
 
-    expect(document.querySelector('.form-lcbank-master-title')?.textContent).toContain('Complete os campos para que nossos \n especialistas consultem o seu processo')
-    expect(document.querySelectorAll('.form-lcbank-master-privacy')[0]?.textContent).toContain('Ao enviar meus dados, eu concordo com a')
-    expect(document.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.textContent).toContain('Política de Privacidade')
-    expect(document.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.href).toBe('https://google.com.br/')
+    expect(modalParent.querySelector('.form-lcbank-master-title')?.textContent).toContain('Complete os campos para que nossos \n especialistas consultem o seu processo')
+    expect(modalParent.querySelectorAll('.form-lcbank-master-privacy')[0]?.textContent).toContain('Ao enviar meus dados, eu concordo com a')
+    expect(modalParent.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.textContent).toContain('Política de Privacidade')
+    expect(modalParent.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.href).toBe('https://google.com.br/')
   })
 
   it('should use custom labels from data attributes', () => {
-    document.querySelector('#form-lcbank-apply')?.setAttribute('data-label-name', 'Nome Personalizado')
-    document.querySelector('#form-lcbank-apply')?.setAttribute('data-label-email', 'Email Personalizado')
-    document.querySelector('#form-lcbank-apply')?.setAttribute('data-label-phone', 'Telefone Personalizado')
-    document.querySelector('#form-lcbank-apply')?.setAttribute('data-label-cpf', 'CPF Personalizado')
+    document.querySelector('[data-form-lcbank-apply]')?.setAttribute('data-label-name', 'Nome Personalizado')
+    document.querySelector('[data-form-lcbank-apply]')?.setAttribute('data-label-email', 'Email Personalizado')
+    document.querySelector('[data-form-lcbank-apply]')?.setAttribute('data-label-phone', 'Telefone Personalizado')
+    document.querySelector('[data-form-lcbank-apply]')?.setAttribute('data-label-cpf', 'CPF Personalizado')
     createForm()
     expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Personalizado')
     expect(document.querySelector('#form-lcbank-label-email')?.textContent).toContain('Email Personalizado')
@@ -94,18 +96,20 @@ describe('createForm', () => {
   })
 
   it('should update the images', () => {
-    document.querySelector('#form-lcbank-apply')?.setAttribute('data-logo-company', 'https://www.php.net/images/logos/php-logo.svg')
+    document.querySelector('[data-form-lcbank-apply]')?.setAttribute('data-logo-company', 'https://www.php.net/images/logos/php-logo.svg')
     createForm()
     expect((document.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://www.php.net/images/logos/php-logo.svg')
 
   })
 
   it('should the placeholder is changed', () => {
-    document.querySelector('#form-lcbank-apply')?.setAttribute('data-placeholder-cpf', 'Ex: 123.123.123-00')
+
+    const element = document.querySelector('[data-form-lcbank-apply]')!
+    element?.setAttribute('data-placeholder-cpf', 'Ex: 123.123.123-00')
     createForm()
-    const phoneInput = (document.querySelector('#form-lcbank-phone') as HTMLInputElement)?.placeholder
-    const nameInput = (document.querySelector('#form-lcbank-name') as HTMLInputElement)?.placeholder
-    const cpfInput = (document.querySelector('#form-lcbank-cpf') as HTMLInputElement)?.placeholder
+    const phoneInput = (element.querySelector('[data-field-phone]') as HTMLInputElement)?.placeholder
+    const nameInput = (element.querySelector('[data-field-name]') as HTMLInputElement)?.placeholder
+    const cpfInput = (element.querySelector('[data-field-cpf]') as HTMLInputElement)?.placeholder
     expect(phoneInput).toBe('(99) 9999-9999')
     expect(nameInput).toBe('Ex: José Maria da Silva')
 
@@ -113,11 +117,11 @@ describe('createForm', () => {
   })
 
   it('should hide the placeholders', () => {
-    document.querySelector('#form-lcbank-apply')?.setAttribute('data-hide-placeholder', 'true')
+    document.querySelector('[data-form-lcbank-apply]')?.setAttribute('data-hide-placeholder', 'true')
     createForm()
-    const phoneInput = (document.querySelector('#form-lcbank-phone') as HTMLInputElement)?.placeholder
-    const nameInput = (document.querySelector('#form-lcbank-name') as HTMLInputElement)?.placeholder
-    const cpfInput = (document.querySelector('#form-lcbank-cpf') as HTMLInputElement)?.placeholder
+    const phoneInput = (document.querySelector('[data-field-phone]') as HTMLInputElement)?.placeholder
+    const nameInput = (document.querySelector('[data-field-name]') as HTMLInputElement)?.placeholder
+    const cpfInput = (document.querySelector('[data-field-cpf]') as HTMLInputElement)?.placeholder
     expect(phoneInput).toBe('')
     expect(nameInput).toBe('')
     expect(cpfInput).toBe('')
@@ -131,7 +135,7 @@ describe('createForm', () => {
 
   it('should hide the asterisk when e-mail is not required', () => {
     document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
-      id="form-lcbank-apply" 
+      data-form-lcbank-apply 
       data-has-email="false" 
       data-label-name="Nome Completo" 
       data-label-cpf="CPF" 
@@ -149,7 +153,7 @@ describe('createForm', () => {
   })
 
   it('should hide the input email', () => {
-    document.querySelector('#form-lcbank-apply')?.setAttribute('data-has-email', 'false')
+    document.querySelector('[data-form-lcbank-apply]')?.setAttribute('data-has-email', 'false')
     createForm()
     expect(document.querySelector('#form-lcbank-email')).toBeNull()
   })
@@ -176,7 +180,7 @@ describe('createForm', () => {
 
   it('should apply the mask on CPF field', () => {
     createForm()
-    const cpfInput: HTMLInputElement = document.querySelector('#form-lcbank-cpf')!
+    const cpfInput: HTMLInputElement = document.querySelector('[data-field-cpf]')!
     const inputSequence = '12345678900'
     inputSequence.split('').forEach(char => {
       cpfInput.value += char
@@ -188,7 +192,7 @@ describe('createForm', () => {
 
   it('should apply the mask on Phone field - cellphone', () => {
     createForm()
-    const phoneInput: HTMLInputElement = document.querySelector('#form-lcbank-phone')!
+    const phoneInput: HTMLInputElement = document.querySelector('[data-field-phone]')!
     const inputSequence = '99999999999'
     inputSequence.split('').forEach(char => {
       phoneInput.value += char
@@ -200,7 +204,7 @@ describe('createForm', () => {
 
   it('should apply the mask on Phone field - fixed phone', () => {
     createForm()
-    const phoneInput: HTMLInputElement = document.querySelector('#form-lcbank-phone')!
+    const phoneInput: HTMLInputElement = document.querySelector('[data-field-phone]')!
     const inputSequence = '9999999999'
     inputSequence.split('').forEach(char => {
       phoneInput.value += char
@@ -212,13 +216,14 @@ describe('createForm', () => {
 
   it('should show errors when invalid data', () => {
     createForm()
-    const submitButton: HTMLButtonElement = document.querySelector('#form-lcbank-label-button')!
+    const element = document.querySelector('[data-form-lcbank-apply]')!
+    const submitButton: HTMLButtonElement = element.querySelector('[data-button-submit]')!
     submitButton.click()
 
-    const phoneInput: HTMLInputElement = document.querySelector('#form-lcbank-phone')!
-    const phoneEmail: HTMLInputElement = document.querySelector('#form-lcbank-email')!
-    const phoneName: HTMLInputElement = document.querySelector('#form-lcbank-name')!
-    const phoneCpf: HTMLInputElement = document.querySelector('#form-lcbank-cpf')!
+    const phoneInput: HTMLInputElement = element.querySelector('[data-field-phone]')!
+    const phoneEmail: HTMLInputElement = element.querySelector('[data-field-email]')!
+    const phoneName: HTMLInputElement = element.querySelector('[data-field-name]')!
+    const phoneCpf: HTMLInputElement = element.querySelector('[data-field-cpf]')!
 
     expect(phoneInput?.classList.contains('error')).toBe(true)
     expect(phoneEmail?.classList.contains('error')).toBe(true)
@@ -228,12 +233,15 @@ describe('createForm', () => {
 
   it('should show success fields', () => {
     createForm()
-    const submitButton: HTMLButtonElement = document.querySelector('#form-lcbank-label-button')!
 
-    const phoneInput: HTMLInputElement = document.querySelector('#form-lcbank-phone')!
-    const emailInput: HTMLInputElement = document.querySelector('#form-lcbank-email')!
-    const nameInput: HTMLInputElement = document.querySelector('#form-lcbank-name')!
-    const cpfInput: HTMLInputElement = document.querySelector('#form-lcbank-cpf')!
+    const element = document.querySelector('[data-form-lcbank-apply]')!
+
+    const submitButton: HTMLButtonElement = element.querySelector('[data-button-submit]')!
+
+    const phoneInput: HTMLInputElement = element.querySelector('[data-field-phone]')!
+    const emailInput: HTMLInputElement = element.querySelector('[data-field-email]')!
+    const nameInput: HTMLInputElement = element.querySelector('[data-field-name]')!
+    const cpfInput: HTMLInputElement = element.querySelector('[data-field-cpf]')!
 
     const phoneSequence = '47999999999'
     phoneSequence.split('').forEach(char => {
@@ -271,7 +279,7 @@ describe('createForm', () => {
 
   it('should use default labels when no custom labels are provided', () => {
     document.body.innerHTML = `
-      <div id="form-lcbank-apply" data-page-title="Página do Desenvolvedor"
+      <div data-form-lcbank-apply data-page-title="Página do Desenvolvedor"
       data-website="LC Bank"></div>
     `
     createForm()
@@ -283,7 +291,7 @@ describe('createForm', () => {
 
   it('should use custom labels when provided', () => {
     document.body.innerHTML = `
-      <div id="form-lcbank-apply"
+      <div data-form-lcbank-apply
         data-has-email="true"
         data-label-name="Nome Personalizado"
         data-label-cpf="CPF Personalizado"
@@ -303,7 +311,7 @@ describe('createForm', () => {
 
   it('should use a mix of default and custom labels', () => {
     document.body.innerHTML = `
-      <div id="form-lcbank-apply"
+      <div data-form-lcbank-apply
       data-website="LC Bank"
         data-page-title="Página do Desenvolvedor"
         data-label-name="Nome Personalizado"
@@ -320,7 +328,7 @@ describe('createForm', () => {
   // validando o modo form
   it('should use custom labels when provided', () => {
     document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
-      id="form-lcbank-apply" 
+      data-form-lcbank-apply 
       data-has-email="true" 
       data-mode="form"
       data-label-name="Nome Completo" 
