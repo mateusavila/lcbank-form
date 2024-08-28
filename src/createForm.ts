@@ -130,15 +130,14 @@ export const createForm = () => {
       placeholder: placeholderCpf,
       errorMessage: errorCpf,
       label: labelCpf,
-      helper: 'O seu CPF nos ajuda a localizar e analisar o seu processo.'
+      helper: 'O seu CPF nos ajuda a analisar o seu processo.'
     })}
     ${templateBuilder().input({
       required: true,
       name: 'phone',
       placeholder: placeholderPhone,
       errorMessage: errorPhone,
-      label: labelPhone,
-      helper: 'Insira um numero válido.'
+      label: labelPhone
     })}
       ${printInputs}
       ${templateBuilder().submitButton(labelButton)}

@@ -124,6 +124,12 @@
   --form-lcbank-mobile-title-color: #222222 !important;
   --form-lcbank-mobile-title-margin: 10px 0 !important;
   --form-lcbank-mobile-title-align: center !important;
+
+  /* close */
+  --form-lcbank-close-image-width: 22px !important;
+  --form-lcbank-close-image-height: 22px !important;
+  --form-lcbank-close-image-max-width: 22px !important;
+  --form-lcbank-close-image-max-height: 22px !important;
   
 }
 .form-lcbank-image-box, .form-lcbank-form, .form-lcbank-modal {
@@ -180,9 +186,6 @@
   color: var(--form-lcbank-imagebox-text-color) !important;
   line-height: var(--form-lcbank-imagebox-text-line-height) !important;
 }
-.form-lcbank-close {
-  top: 20px !important;
-}
 .form-lcbank-image-box-info {
   padding: 0 20px !important;
   display: flex !important;
@@ -191,6 +194,7 @@
   justify-content: center !important;
 }
 .form-lcbank-close {
+  top: 20px !important;
   right: 20px !important;
   width: 46px !important;
   height: 46px !important;
@@ -322,6 +326,12 @@
 .form-lcbank-required {
   color: var(--form-lcbank-required-color) !important;
 }
+.form-lcbank-close-img {
+  width: var(--form-lcbank-close-image-width);
+  max-width: var(--form-lcbank-close-image-max-width);
+  height: var(--form-lcbank-close-image-height);
+  max-height: var(--form-lcbank-close-image-max-height);
+}
 .form-lcbank-label-button {
   font-size: var(--form-lcbank-button-size) !important;
   background: var(--form-lcbank-button-background-color) !important;
@@ -431,5 +441,10 @@
     &.active {
       transform: translateY(0) !important;
     }
+  }
+
+  .form-lcbank-helper {
+    font-size: 11px !important;
+    display: block;
   }
 }

@@ -202,7 +202,7 @@ describe('createForm', () => {
     createForm()
     const helpers = document.querySelectorAll('.form-lcbank-helper')
     expect(helpers).not.toBeNull()
-    expect(helpers.length).toBe(2)
+    expect(helpers.length).toBe(1)
   })
 
   it('should have at least 5 input hidden fields', () => {
