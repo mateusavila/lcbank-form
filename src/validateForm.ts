@@ -10,7 +10,6 @@ import { validatePhoneNumber } from "./validatePhone"
 
 
 export const validateForm = (options: ValidateForm) => {
-
   const { requiredEmail, goTo, hasEmail, form } = options
 
   if (form) {

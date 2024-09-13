@@ -330,6 +330,7 @@ describe('createForm', () => {
         data-label-cpf="CPF Personalizado"
         data-label-phone="Telefone Personalizado"
         data-page-title="Página do Desenvolvedor"
+        data-helper-cpf="Põe teu CPF"
         data-website="LC Bank"
         data-label-email="E-mail Personalizado">
       </div>
@@ -340,6 +341,7 @@ describe('createForm', () => {
     expect(document.querySelector('#form-lcbank-label-cpf')?.textContent).toContain('CPF Personalizado')
     expect(document.querySelector('#form-lcbank-label-phone')?.textContent).toContain('Telefone Personalizado')
     expect(document.querySelector('#form-lcbank-label-email')?.textContent).toContain('E-mail Personalizado')
+    expect(document.querySelector('.form-lcbank-helper')?.textContent).toContain('Põe teu CPF')
   })
 
   it('should use a mix of default and custom labels', () => {

@@ -5,9 +5,6 @@ import { resultBox } from "./resultBox"
 export const processForm = async (fields: Record<string, string>, goTo: string, form: HTMLFormElement) => {
 
   const { start, title, text, end } = resultBox(form.querySelector('[data-result]')!)
-  // button()
-
-  // await fetch('http://localhost:8000/wp-json/api/contact-form', {
   await fetch('https://lcbform.com.br/wp-json/api/contact-form', {
     method: 'POST',
     body: JSON.stringify(fields),

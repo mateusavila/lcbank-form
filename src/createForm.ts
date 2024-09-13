@@ -80,6 +80,8 @@ export const createForm = () => {
     const placeholderEmail = !hidePlaceholder ? data.placeholderPhone ?? 'E-mail' : ''
     const labelButton = data.labelButton ?? 'Bora antecipar'
 
+    const helperCPF = data.helperCpf ?? 'O seu CPF nos ajuda a analisar o seu processo.'
+
     const modalTitle = data.modalTitle ?? 'Complete os campos para que nossos \n especialistas consultem o seu processo'
 
     const modalPrivacy = data.modalPrivacy ?? 'Ao enviar meus dados, eu concordo com a'
@@ -130,7 +132,7 @@ export const createForm = () => {
       placeholder: placeholderCpf,
       errorMessage: errorCpf,
       label: labelCpf,
-      helper: 'O seu CPF nos ajuda a analisar o seu processo.'
+      helper: helperCPF
     })}
     ${templateBuilder().input({
       required: true,
