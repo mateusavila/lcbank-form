@@ -24,9 +24,9 @@ describe('loadingBox', () => {
   it('should loading appears on screen', () => {
 
     const loading: HTMLElement = document.querySelector('[data-loading]')!
-    loadingBox(loading).startLoading()
+    loadingBox(loading).start()
     expect(loading?.classList.contains('active')).toBe(true)
-    loadingBox(loading).endLoading()
+    loadingBox(loading).end()
     expect(loading?.classList.contains('active')).toBe(false)
   })
 })

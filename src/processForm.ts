@@ -2,6 +2,9 @@
 import { loadingBox } from "./loadingBox"
 import { resultBox } from "./resultBox"
 
+// development link
+// http://localhost:8000/wp-json/api/contact-form
+
 export const processForm = async (fields: Record<string, string>, goTo: string, form: HTMLFormElement) => {
 
   const { start, title, text, end } = resultBox(form.querySelector('[data-result]')!)
@@ -11,7 +14,7 @@ export const processForm = async (fields: Record<string, string>, goTo: string, 
   })
     .then((response: any) => response.json())
     .then((response: any) => {
-      loadingBox(form.querySelector('[data-loading]')!).endLoading()
+      loadingBox(form.querySelector('[data-loading]')!).end()
       if (response.status !== 200) {
 
         title()!.innerHTML = response.title
@@ -20,7 +23,7 @@ export const processForm = async (fields: Record<string, string>, goTo: string, 
       }
       if (response.status === 200) {
         end()
-        loadingBox(form.querySelector('[data-loading]')!).endLoading()
+        loadingBox(form.querySelector('[data-loading]')!).end()
         window.location.href = goTo
       }
     })

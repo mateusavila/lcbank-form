@@ -85,7 +85,7 @@ export const validateForm = (options: ValidateForm) => {
           (field as HTMLInputElement).disabled = true
         }
       })
-      loadingBox(form.querySelector('[data-loading]')!).startLoading()
+      loadingBox(form.querySelector('[data-loading]')!).start()
 
       /* v8 ignore next 3 */
       if (!fields.email || fields.email.length === 0) {

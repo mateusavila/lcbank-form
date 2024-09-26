@@ -98,7 +98,6 @@ describe('validateFieldBlur', () => {
       input.dispatchEvent(new Event('input'))
     })
     input.dispatchEvent(new Event('blur'))
-    console.log('input claslist', input.classList.contains('success'))
     expect(input.classList.contains('success')).toBeFalsy()
     expect(input.classList.contains('error')).toBeTruthy()
   })
@@ -118,7 +117,4 @@ describe('validateFieldBlur', () => {
 
     expect(input.classList.contains('success')).toBeFalsy()
   })
-
-
-
 })

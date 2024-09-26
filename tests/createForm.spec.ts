@@ -101,14 +101,13 @@ describe('createForm', () => {
     createForm()
     const form: HTMLFormElement = document.querySelector('[data-form-lcbank]')!
     const modalParent = form.parentElement?.parentElement?.parentElement?.parentElement!
-    console.log(modalParent)
     expect(form).not.toBeNull()
     expect(form.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Completo')
     expect(form.querySelector('#form-lcbank-label-cpf')?.textContent).toContain('CPF')
     expect(form.querySelector('#form-lcbank-label-button')?.textContent).toContain('Enviar seus dados')
     expect(form.querySelector('#form-lcbank-label-phone')?.textContent).toContain('Telefone')
 
-    expect((modalParent.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://lcbform.com.br/wp-content/uploads/2024/08/logotipo.png')
+    expect((modalParent.querySelector('.form-lcbank-image-logo') as HTMLImageElement)?.src).toBe('https://lcbform.com.br/wp-content/uploads/2024/09/logo-lcbank.svg')
 
     expect(modalParent.querySelector('.form-lcbank-master-title')?.textContent).toContain('Complete os campos para que nossos \n especialistas consultem o seu processo')
     expect(modalParent.querySelectorAll('.form-lcbank-master-privacy')[0]?.textContent).toContain('Ao enviar meus dados, eu concordo com a')
@@ -313,7 +312,7 @@ describe('createForm', () => {
   it('should use default labels when no custom labels are provided', () => {
     document.body.innerHTML = `
       <div data-form-lcbank-apply data-page-title="Página do Desenvolvedor"
-      data-website="LC Bank"></div>
+      data-website="LCbank"></div>
     `
     createForm()
 
@@ -331,7 +330,7 @@ describe('createForm', () => {
         data-label-phone="Telefone Personalizado"
         data-page-title="Página do Desenvolvedor"
         data-helper-cpf="Põe teu CPF"
-        data-website="LC Bank"
+        data-website="LCbank"
         data-label-email="E-mail Personalizado">
       </div>
     `
@@ -347,7 +346,7 @@ describe('createForm', () => {
   it('should use a mix of default and custom labels', () => {
     document.body.innerHTML = `
       <div data-form-lcbank-apply
-      data-website="LC Bank"
+      data-website="LCbank"
         data-page-title="Página do Desenvolvedor"
         data-label-name="Nome Personalizado"
         data-label-cpf="CPF Personalizado">

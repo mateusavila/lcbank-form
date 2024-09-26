@@ -13,6 +13,7 @@ import { validateCPF } from './validateCPF'
 import { validatePhoneNumber } from './validatePhone'
 import { validateName } from './validateName'
 import { validateEmail } from './validateEmail'
+import { maskName } from './maskName'
 
 export const createForm = () => {
   const blocks = document.querySelectorAll<HTMLDivElement>('[data-form-lcbank-apply]')
@@ -59,8 +60,8 @@ export const createForm = () => {
     const hasEmail = data.hasEmail === 'true'
     const requiredEmail = data.requiredEmail !== 'false'
 
-    const company = data.company ?? 'LC Bank'
-    const logoCompany = data.logoCompany ?? 'https://lcbform.com.br/wp-content/uploads/2024/08/logotipo.png'
+    const company = data.company ?? 'LCbank'
+    const logoCompany = data.logoCompany ?? 'https://lcbform.com.br/wp-content/uploads/2024/09/logo-lcbank.svg'
     const imageTitle = data.imageTitle ?? `Solicite a antecipação\n e receba o dinheiro da\n sua RPV em 24h!`
     const titleMobile = data.titleMobile ?? `Antecipe agora<br> o dinheiro da sua RPV`
     const imageText = data.imageTitle ?? `*Após a assinatura do contrato. `
@@ -162,6 +163,7 @@ export const createForm = () => {
     // aplicar as máscaras
     maskCPF(cpfField)
     maskPhone(phoneField)
+    maskName(nameField)
 
     // validate blur
     validateFieldBlur({
