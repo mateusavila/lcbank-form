@@ -456,11 +456,12 @@
 }
 @media all and (max-width: 767px) {
 
-  .form-lcbank-modal-partial-content {
-    padding: 30px !important;
-  }
+  
   .form-lcbank-master-mobile-title {
     display: block !important;
+  }
+  .form-lcbank-modal-partial-content {
+    padding: 30px !important;
   }
   .form-lcbank-master {
     width: var(--form-lcbank-master-width-767) !important;
