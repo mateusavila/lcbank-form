@@ -28,7 +28,7 @@ export const createForm = () => {
     // campos obrigatórios
     const pageTitle = data.pageTitle?.length
     const website = data.website?.length
-    const mode: 'modal' | 'form' = data.mode?.length ? data.mode as 'modal' | 'form' : 'modal'
+    const mode: 'modal' | 'form' | 'modal-partial' = data.mode?.length ? data.mode as 'modal' | 'form' | 'modal-partial' : 'modal'
 
     if (!pageTitle) {
       console.error("É necessário atribuir o título da página com data-page-title=\"Título da página\"")
@@ -89,26 +89,23 @@ export const createForm = () => {
     const modalPrivacyLink = data.modalPrivacyLink ?? 'https://google.com.br'
     const modalPrivacyText = data.modalPrivacyText ?? 'Política de Privacidade'
 
-    const headerTemplate = mode === 'modal' ? `<div class="form-lcbank-modal" id="form-lcbank-modal">
-      <div class="form-lcbank-modal-block">
-        ${templateBuilder().closeModal()}
-        <div class="form-lcbank-image-box">
-          <div class="form-lcbank-image-box-info">
-            <img src="${logoCompany}" alt="${company}" class="form-lcbank-image-logo" loading="lazy">
-            <p class="form-lcbank-image-logo-title">${imageTitle}</p>
-            </div>
-            <p class="form-lcbank-image-logo-text">${imageText}</p>
-        </div>
-        <div class="form-lcbank-master">
-          <div class="form-lcbank-master-container">
-            <h2 class="form-lcbank-master-mobile-title">${titleMobile}</h2>
-            <p class="form-lcbank-master-title">${modalTitle}</p>` : ''
+    const headerTemplate = mode === 'modal' ? templateBuilder().modalTemplateHeader({
+      company,
+      logoCompany,
+      imageTitle,
+      imageText,
+      titleMobile,
+      modalTitle
+    }) : mode === 'modal-partial' ? templateBuilder().modalPartialHeader({
+      modalTitle,
+      titleMobile
+    }) : ''
 
-    const footerTemplate = mode === 'modal' ? `<p class="form-lcbank-master-privacy">${modalPrivacy} <a href="${modalPrivacyLink}" target="_blank" rel="noopener noreferrer">${modalPrivacyText}</a></p>
-          </div>
-        </div>
-      </div>
-    </div>` : ''
+    const footerTemplate = mode === 'modal' ? templateBuilder().modalFooterTemplate({
+      modalPrivacy,
+      modalPrivacyLink,
+      modalPrivacyText
+    }) : mode === 'modal-partial' ? templateBuilder().modalPartialFooter() : ''
 
     const template = `${headerTemplate}
       <form action="#" method="post" novalidate id="form-lcbank" class="form-lcbank-form" data-form-lcbank>

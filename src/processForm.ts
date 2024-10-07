@@ -3,7 +3,7 @@ import { loadingBox } from "./loadingBox"
 import { resultBox } from "./resultBox"
 
 // development link
-// http://localhost:8000/wp-json/api/contact-form
+// https://wp.mateusavila.com.br/tack/wp-json/api/contact-form
 
 export const processForm = async (fields: Record<string, string>, goTo: string, form: HTMLFormElement) => {
 

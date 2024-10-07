@@ -1,5 +1,5 @@
 import { generateRandomString } from "./generateRandomString"
-import { InputFieldInterface } from "./types"
+import { InputFieldInterface, ModalFooterTemplate, ModalHeaderPartial, ModalTitleHeader } from "./types"
 
 export const templateBuilder = () => {
 
@@ -15,5 +15,60 @@ export const templateBuilder = () => {
 
   const submitButton = (label: string) => `<div class="form-lcbank-field"><button type="submit" id="form-lcbank-label-button" class="form-lcbank-label-button" data-button-submit>${label}</button></div>`
 
-  return { input, closeModal, submitButton }
+  const modalTemplateHeader = (options: ModalTitleHeader) => {
+    const {
+      company,
+      logoCompany,
+      imageTitle,
+      imageText,
+      titleMobile,
+      modalTitle } = options
+    return `<div class="form-lcbank-modal" id="form-lcbank-modal">
+      <div class="form-lcbank-modal-block">
+        ${templateBuilder().closeModal()}
+        <div class="form-lcbank-image-box">
+          <div class="form-lcbank-image-box-info">
+            <img src="${logoCompany}" alt="${company}" class="form-lcbank-image-logo" loading="lazy">
+            <p class="form-lcbank-image-logo-title">${imageTitle}</p>
+            </div>
+            <p class="form-lcbank-image-logo-text">${imageText}</p>
+        </div>
+        <div class="form-lcbank-master">
+          <div class="form-lcbank-master-container">
+            <h2 class="form-lcbank-master-mobile-title">${titleMobile}</h2>
+            <p class="form-lcbank-master-title">${modalTitle}</p>`
+  }
+
+  const modalFooterTemplate = (options: ModalFooterTemplate) => {
+    const { modalPrivacy, modalPrivacyLink, modalPrivacyText } = options
+    return `<p class="form-lcbank-master-privacy">${modalPrivacy} <a href="${modalPrivacyLink}" target="_blank" rel="noopener noreferrer">${modalPrivacyText}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>`
+  }
+
+  const modalPartialHeader = (options: ModalHeaderPartial) => {
+    const { titleMobile, modalTitle } = options
+    return `
+      <div class="form-lcbank-modal-partial" id="form-lcbank-modal">
+      ${templateBuilder().closeModal()}
+      <div class="form-lcbank-modal-partial-content">
+        <h2 class="form-lcbank-master-title">${titleMobile}</h2>
+        <p class="form-lcbank-master-title">${modalTitle}</p>`
+  }
+
+  const modalPartialFooter = () => {
+    return `</div></div><div class="form-lcbank-modal-backdrop" data-backdrop></div>`
+  }
+
+  return {
+    input,
+    closeModal,
+    submitButton,
+    modalTemplateHeader,
+    modalFooterTemplate,
+    modalPartialFooter,
+    modalPartialHeader
+  }
 }

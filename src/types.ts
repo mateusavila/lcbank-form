@@ -32,3 +32,24 @@ export interface ValidateField {
   input: HTMLInputElement
   validator: Function | null
 }
+
+
+export interface ModalTitleHeader {
+  company: string
+  logoCompany: string
+  imageTitle: string
+  imageText: string
+  titleMobile: string
+  modalTitle: string
+}
+
+export interface ModalFooterTemplate {
+  modalPrivacy: string
+  modalPrivacyLink: string
+  modalPrivacyText: string
+}
+
+export interface ModalHeaderPartial {
+  titleMobile: string
+  modalTitle: string
+}
