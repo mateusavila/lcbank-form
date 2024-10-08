@@ -50,6 +50,5 @@ export interface ModalFooterTemplate {
 }
 
 export interface ModalHeaderPartial {
-  titleMobile: string
   modalTitle: string
 }

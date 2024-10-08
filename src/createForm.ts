@@ -61,6 +61,7 @@ export const createForm = () => {
     const requiredEmail = data.requiredEmail !== 'false'
 
     const company = data.company ?? 'LCbank'
+    const buttonTheme = data.buttonTheme ?? ''
     const logoCompany = data.logoCompany ?? 'https://lcbform.com.br/wp-content/uploads/2024/09/logo-lcbank.svg'
     const imageTitle = data.imageTitle ?? `Solicite a antecipação\n e receba o dinheiro da\n sua RPV em 24h!`
     const titleMobile = data.titleMobile ?? `Antecipe agora<br> o dinheiro da sua RPV`
@@ -96,16 +97,17 @@ export const createForm = () => {
       imageText,
       titleMobile,
       modalTitle
-    }) : mode === 'modal-partial' ? templateBuilder().modalPartialHeader({
-      modalTitle,
-      titleMobile
-    }) : ''
+    }) : mode === 'modal-partial' ? templateBuilder().modalPartialHeader({ modalTitle }) : ''
 
     const footerTemplate = mode === 'modal' ? templateBuilder().modalFooterTemplate({
       modalPrivacy,
       modalPrivacyLink,
       modalPrivacyText
-    }) : mode === 'modal-partial' ? templateBuilder().modalPartialFooter() : ''
+    }) : mode === 'modal-partial' ? templateBuilder().modalPartialFooter({
+      modalPrivacy,
+      modalPrivacyLink,
+      modalPrivacyText
+    }) : ''
 
     const template = `${headerTemplate}
       <form action="#" method="post" novalidate id="form-lcbank" class="form-lcbank-form" data-form-lcbank>
@@ -140,7 +142,7 @@ export const createForm = () => {
       label: labelPhone
     })}
       ${printInputs}
-      ${templateBuilder().submitButton(labelButton)}
+      ${templateBuilder().submitButton(labelButton, buttonTheme as 'blue' | '')}
       ${loadingBox(block.querySelector('[data-loading]')!).template}
       ${resultBox(block.querySelector('[data-result]')!).template}
       </form>

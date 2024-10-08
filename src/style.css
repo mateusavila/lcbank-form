@@ -85,6 +85,7 @@
   /* button */
   --form-lcbank-button-size: 16px !important;
   --form-lcbank-button-background-color: #D10774 !important;
+  --form-lcbank-button-background-color-alternate-1: #030944 !important;
   --form-lcbank-button-background-color-hover: #0D18A3 !important;
   --form-lcbank-button-color: #fff !important;
   --form-lcbank-button-color-hover: #fff !important;
@@ -283,6 +284,7 @@
 }
 .form-lcbank-field {
   margin: var(--form-lcbank-field-margin) !important;
+  text-align: left !important;
 }
 .form-lcbank-label {
   width: var(--form-lcbank-label-width) !important;
@@ -343,6 +345,9 @@
   font-weight: var(--form-lcbank-button-weight) !important;
   cursor: pointer !important;
   transition: var(--form-lcbank-button-transition) !important;
+  &.blue {
+    background: var(--form-lcbank-button-background-color-alternate-1) !important;
+  }
   &:hover {
     transition: var(--form-lcbank-button-transition) !important;
     background: var(--form-lcbank-button-background-color-hover) !important;
@@ -359,7 +364,8 @@
 .form-lcbank-helper {
   color: var(--form-lcbank-helper-color) !important;
   font-size: var(--form-lcbank-helper-size) !important;
-  margin: var(--form-lcbank-helper-margin)
+  margin: var(--form-lcbank-helper-margin);
+  text-align: left !important;
 }
 .form-lcbank-master-privacy {
   margin: var(--form-lcbank-privacy-margin) !important;
@@ -410,7 +416,9 @@
 .form-lcbank-modal-partial-content {
   padding: 30px 60px !important;
   width: 100% !important;
+  text-align: center !important;
   h2, p {
+    text-align: center !important;
     font-family: var(--form-lcbank-master-font);
   }
 }
@@ -455,13 +463,18 @@
   }
 }
 @media all and (max-width: 767px) {
-
-  
-  .form-lcbank-master-mobile-title {
-    display: block !important;
+  .form-lcbank-modal-partial {
+    border-radius: 0 !important;
   }
   .form-lcbank-modal-partial-content {
-    padding: 30px !important;
+    padding: 30px 20px !important;
+    h2 {
+      font-size: 20px !important;
+      line-height: 150% !important;
+    }
+  }
+  .form-lcbank-master-mobile-title {
+    display: block !important;
   }
   .form-lcbank-master {
     width: var(--form-lcbank-master-width-767) !important;

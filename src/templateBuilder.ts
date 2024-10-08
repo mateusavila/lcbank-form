@@ -13,7 +13,7 @@ export const templateBuilder = () => {
 
   const closeModal = () => `<button type="button" id="form-lcbank-close" class="form-lcbank-close"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE0LjU3MTQgMS44NDk4OUwxMy43NjU2IDFMOC4wMDAwMiA3LjA4MDkxTDIuMjM0NDEgMUwxLjQyODU5IDEuODQ5ODlMNy4xOTQxOSA3LjkzMDhMMS40Mjg1OSAxNC4wMTE3TDIuMjM0NDEgMTQuODYxNkw4LjAwMDAyIDguNzgwN0wxMy43NjU2IDE0Ljg2MTZMMTQuNTcxNCAxNC4wMTE3TDguODA1ODQgNy45MzA4TDE0LjU3MTQgMS44NDk4OVoiIGZpbGw9IiMyMjIyMjIiIHN0cm9rZT0iIzIyMjIyMiIvPgo8L3N2Zz4K" alt="close" width="14" height="14" loading="lazy" class="form-lcbank-close-img"></button>`
 
-  const submitButton = (label: string) => `<div class="form-lcbank-field"><button type="submit" id="form-lcbank-label-button" class="form-lcbank-label-button" data-button-submit>${label}</button></div>`
+  const submitButton = (label: string, theme: 'blue' | '') => `<div class="form-lcbank-field"><button type="submit" id="form-lcbank-label-button" class="form-lcbank-label-button ${theme}" data-button-submit>${label}</button></div>`
 
   const modalTemplateHeader = (options: ModalTitleHeader) => {
     const {
@@ -49,17 +49,17 @@ export const templateBuilder = () => {
   }
 
   const modalPartialHeader = (options: ModalHeaderPartial) => {
-    const { titleMobile, modalTitle } = options
+    const { modalTitle } = options
     return `
       <div class="form-lcbank-modal-partial" id="form-lcbank-modal">
       ${templateBuilder().closeModal()}
       <div class="form-lcbank-modal-partial-content">
-        <h2 class="form-lcbank-master-title">${titleMobile}</h2>
-        <p class="form-lcbank-master-title">${modalTitle}</p>`
+        <h2 class="form-lcbank-master-title">${modalTitle}</h2>`
   }
 
-  const modalPartialFooter = () => {
-    return `</div></div><div class="form-lcbank-modal-backdrop" data-backdrop></div>`
+  const modalPartialFooter = (options: ModalFooterTemplate) => {
+    const { modalPrivacy, modalPrivacyLink, modalPrivacyText } = options
+    return `<p class="form-lcbank-master-privacy">${modalPrivacy} <a href="${modalPrivacyLink}" target="_blank" rel="noopener noreferrer">${modalPrivacyText}</a></p></div></div><div class="form-lcbank-modal-backdrop" data-backdrop></div>`
   }
 
   return {

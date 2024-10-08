@@ -115,6 +115,36 @@ describe('createForm', () => {
     expect(modalParent.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.href).toBe('https://google.com.br/')
   })
 
+  it('should create a form with default labels in modal-partial mode', () => {
+    document.body.innerHTML = `<button data-call-to-action>Abrir modal</button> <button data-call-to-action>Abrir modal secundário</button><div 
+      data-form-lcbank-apply 
+      data-has-email="true" 
+      data-mode="modal-partial"
+      data-label-name="Nome Completo" 
+      data-label-cpf="CPF" 
+      data-label-phone="Telefone" 
+      data-page-title="Página do Desenvolvedor"
+      data-website="LCBank"
+      data-input-url="https://www.google.com.br/homepage"
+      data-input-site="https://www.google.com.br"
+      data-placeholder-phone="(99) 9999-9999" 
+      data-label-button="Enviar seus dados">
+    </div>`
+    createForm()
+    const form: HTMLFormElement = document.querySelector('[data-form-lcbank]')!
+    const modalParent = form.parentElement?.parentElement?.parentElement?.parentElement!
+    expect(form).not.toBeNull()
+    expect(form.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Completo')
+    expect(form.querySelector('#form-lcbank-label-cpf')?.textContent).toContain('CPF')
+    expect(form.querySelector('#form-lcbank-label-button')?.textContent).toContain('Enviar seus dados')
+    expect(form.querySelector('#form-lcbank-label-phone')?.textContent).toContain('Telefone')
+
+    expect(modalParent.querySelector('.form-lcbank-master-title')?.textContent).toContain('Complete os campos para que nossos \n especialistas consultem o seu processo')
+    expect(modalParent.querySelectorAll('.form-lcbank-master-privacy')[0]?.textContent).toContain('Ao enviar meus dados, eu concordo com a')
+    expect(modalParent.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.textContent).toContain('Política de Privacidade')
+    expect(modalParent.querySelectorAll('.form-lcbank-master-privacy')[0].querySelector('a')?.href).toBe('https://google.com.br/')
+  })
+
   it('should use custom labels from data attributes', () => {
     document.querySelector('[data-form-lcbank-apply]')?.setAttribute('data-label-name', 'Nome Personalizado')
     document.querySelector('[data-form-lcbank-apply]')?.setAttribute('data-label-email', 'Email Personalizado')
