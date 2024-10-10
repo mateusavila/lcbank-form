@@ -7,14 +7,24 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "test": "vitest run --environment happy-dom",
+    "coverage": "vitest run --coverage",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@vitest/coverage-v8": "^2.1.2",
     "happy-dom": "^15.7.4",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "typescript": "^5.6.2",
     "vite": "^5.4.8",
     "vitest": "^2.1.2"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,vue}": [
+      "vitest related --environment happy-dom --run"
+    ]
   }
 }

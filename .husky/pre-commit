@@ -1,0 +1,2 @@
+bunx lint-staged
+vitest run --environment happy-dom

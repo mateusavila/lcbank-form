@@ -1,7 +1,10 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { templateBuilder } from '../src/templateBuilder'
 
 describe('templateBuilder', () => {
+  beforeEach(() => {
+    document.body.innerHTML = ''
+  })
   it('should print the correct name template', () => {
     const inputField = templateBuilder().input({
       type: 'text',
