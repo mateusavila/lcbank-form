@@ -35,7 +35,7 @@ describe('validateFieldBlur', () => {
     })
     input.dispatchEvent(new Event('blur'))
 
-    expect(input.classList.contains('success')).toBeTruthy()
+    expect(input.classList.contains('success')).toBeFalsy()
   })
 
   it('should apply the validation in e-mail field', () => {

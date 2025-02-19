@@ -1,7 +1,5 @@
 export const isValidURL = (url: string | undefined): boolean => {
-  if (!url) {
-    return false
-  }
+  if (!url) return false
   const regex = new RegExp(
     '^(https?:\\/\\/)' + // protocolo obrigatório
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domínio

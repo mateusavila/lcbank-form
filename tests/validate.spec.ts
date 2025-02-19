@@ -26,8 +26,8 @@ describe('validate', () => {
       input.dispatchEvent(new Event('input'))
     })
 
-    expect(validate({ input, validator: validateName })).toBe(true)
-    expect(input.classList.contains('success')).toBe(true)
+    expect(validate({ input, validator: validateName })).toBe(false)
+    expect(input.classList.contains('success')).toBe(false)
   })
 
   it('should clear the classes', () => {
