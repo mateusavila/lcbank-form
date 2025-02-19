@@ -1,3 +1,67 @@
+# name: Build, Release and Deploy
+
+# on:
+#   push:
+#     branches: [main]
+
+# jobs:
+#   build-and-release:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: write
+    
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+
+#       - name: Setup Bun
+#         uses: oven-sh/setup-bun@v1
+#         with:
+#           bun-version: latest
+
+#       - name: Install dependencies
+#         run: bun install
+
+#       - name: Build project
+#         run: bun run build
+
+#       - name: Run tests
+#         run: bun test --env jsdom
+
+#       - name: Commit and Push Built Files
+#         run: |
+#           git config --global user.name "GitHub Actions"
+#           git config --global user.email "actions@github.com"
+#           git add -f dist/form-lcbank.js dist/form-lcbank.css
+#           git commit -m "Add built form-lcbank.js and form-lcbank.css" || echo "No changes to commit"
+#           git push
+
+#       - name: Create Release
+#         id: create_release
+#         uses: softprops/action-gh-release@v1
+#         with:
+#           tag_name: 1.0.${{ github.run_number }}
+#           name: Release ${{ github.run_number }}
+#           draft: false
+#           prerelease: false
+#           files: |
+#             dist/form-lcbank.js
+#             dist/form-lcbank.css
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#       - name: Deploy to GitHub Pages
+#         uses: peaceiris/actions-gh-pages@v3
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           publish_dir: ./dist 
+
+#       - name: Output jsDelivr URLs
+#         run: |
+#           echo "form-lcbank.js is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@v${{ github.run_number }}/dist/form-lcbank.js"
+#           echo "form-lcbank.css is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@v${{ github.run_number }}/dist/form-lcbank.css"
+
 name: Build, Release and Deploy
 
 on:
@@ -9,9 +73,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout do código
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -55,9 +120,14 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist 
+          publish_dir: ./dist
+          force_orphan: true
+
+      - name: Output GitHub Pages URL
+        run: |
+          echo "GitHub Pages is available at: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
 
       - name: Output jsDelivr URLs
         run: |
-          echo "form-lcbank.js is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@v${{ github.run_number }}/dist/form-lcbank.js"
-          echo "form-lcbank.css is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@v${{ github.run_number }}/dist/form-lcbank.css"
+          echo "form-lcbank.js is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@${{ steps.create_release.outputs.tag_name }}/dist/form-lcbank.js"
+          echo "form-lcbank.css is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@${{ steps.create_release.outputs.tag_name }}/dist/form-lcbank.css "
