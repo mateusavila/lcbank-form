@@ -9,9 +9,10 @@
 #     runs-on: ubuntu-latest
 #     permissions:
 #       contents: write
-    
+
 #     steps:
-#       - uses: actions/checkout@v3
+#       - name: Checkout do código
+#         uses: actions/checkout@v3
 #         with:
 #           fetch-depth: 0
 
@@ -55,24 +56,35 @@
 #         uses: peaceiris/actions-gh-pages@v3
 #         with:
 #           github_token: ${{ secrets.GITHUB_TOKEN }}
-#           publish_dir: ./dist 
+#           publish_dir: ./dist
+#           force_orphan: true
+
+#       - name: Output GitHub Pages URL
+#         run: |
+#           echo "GitHub Pages is available at: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
 
 #       - name: Output jsDelivr URLs
 #         run: |
-#           echo "form-lcbank.js is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@v${{ github.run_number }}/dist/form-lcbank.js"
-#           echo "form-lcbank.css is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@v${{ github.run_number }}/dist/form-lcbank.css"
+#           echo "form-lcbank.js is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@${{ steps.create_release.outputs.tag_name }}/dist/form-lcbank.js"
+#           echo "form-lcbank.css is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@${{ steps.create_release.outputs.tag_name }}/dist/form-lcbank.css "
+
 
 name: Build, Release and Deploy
-
 on:
   push:
-    branches: [main]
+    branches: [main, gh-pages]  # Adicionado gh-pages para garantir que as alterações nessa branch também disparem o workflow
 
 jobs:
-  build-and-release:
+  build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write      # Necessário para deploy no GitHub Pages
+      id-token: write   # Necessário para deploy no GitHub Pages
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout do código
@@ -94,19 +106,19 @@ jobs:
       - name: Run tests
         run: bun test --env jsdom
 
-      - name: Commit and Push Built Files
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add -f dist/form-lcbank.js dist/form-lcbank.css
-          git commit -m "Add built form-lcbank.js and form-lcbank.css" || echo "No changes to commit"
-          git push
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
 
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: 1.0.${{ github.run_number }}
+          tag_name: v1.0.${{ github.run_number }}
           name: Release ${{ github.run_number }}
           draft: false
           prerelease: false
@@ -117,17 +129,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          force_orphan: true
+        id: deployment
+        uses: actions/deploy-pages@v4
 
-      - name: Output GitHub Pages URL
+      - name: Output URLs
         run: |
-          echo "GitHub Pages is available at: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
-
-      - name: Output jsDelivr URLs
-        run: |
-          echo "form-lcbank.js is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@${{ steps.create_release.outputs.tag_name }}/dist/form-lcbank.js"
-          echo "form-lcbank.css is now available at https://cdn.jsdelivr.net/gh/${{ github.repository }}@${{ steps.create_release.outputs.tag_name }}/dist/form-lcbank.css "
+          echo "GitHub Pages URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          echo "jsDelivr URLs:"
+          echo "JS: https://cdn.jsdelivr.net/gh/${{ github.repository }}@v1.0.${{ github.run_number }}/dist/form-lcbank.js"
+          echo "CSS: https://cdn.jsdelivr.net/gh/${{ github.repository }}@v1.0.${{ github.run_number }}/dist/form-lcbank.css"
