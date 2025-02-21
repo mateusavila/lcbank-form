@@ -11,7 +11,6 @@ export function modalBox(): void {
     event.preventDefault()
     modal?.classList.remove('active');
     (document.getElementById('form-lcbank') as HTMLFormElement)!.reset()
-
     const inputs = document.querySelectorAll('input[type="text"], input[type="email"]')
     inputs.forEach((input) => clearClassValidation(input as HTMLInputElement))
   }

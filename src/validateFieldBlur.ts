@@ -10,18 +10,10 @@ export const validateFieldBlur = (options: ValidateFieldBlur) => {
   }
 
   const handleBlur = () => {
-    if (!isEmail) {
+    if (!isEmail || (hasEmail && (requiredEmail || input.value.length))) {
       return validate({ input, validator })
     }
-
-    if (hasEmail && requiredEmail) {
-      return validate({ input, validator })
-    }
-
-    if (hasEmail && input.value.length) {
-      return validate({ input, validator })
-    }
-
+  
     if (hasEmail && input.value.length === 0) {
       return clearClassValidation(input)
     }

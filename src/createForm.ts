@@ -71,7 +71,7 @@ export const createForm = () => {
     const labelPhone = data.labelPhone ?? 'WhatsApp'
     const labelEmail = data.labelEmail ?? 'E-mail'
 
-    const errorName = data.errorName ?? 'Nossos especialistas precisam do seu nome completo para encontrar o processo.'
+    const errorName = data.errorName ?? 'Sem seu sobrenome, não conseguimos localizar seu processo. Só assim podemos ajudar!'
     const errorCpf = data.errorCpf ?? 'CPF é um campo obrigatório'
     const errorPhone = data.errorPhone ?? 'Telefone é um campo obrigatório'
     const errorEmail = data.errorPhone ?? 'E-mail é um campo obrigatório'

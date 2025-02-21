@@ -8,7 +8,6 @@ import { shouldEvaluateEmail, validateEmail } from "./validateEmail"
 import { validateName } from "./validateName"
 import { validatePhoneNumber } from "./validatePhone"
 
-
 export const validateForm = (options: ValidateForm) => {
   const { requiredEmail, goTo, hasEmail, form } = options
 
@@ -61,16 +60,12 @@ export const validateForm = (options: ValidateForm) => {
 
       arrFields.map(({ input, validator }, index) => {
         if (input && index !== 1) {
-          if (!validate({
-            input, validator
-          })) {
+          if (!validate({ input, validator })) {
             errors++
           }
         }
         if (shouldEvaluateEmail(input, { hasEmail, requiredEmail })) {
-          if (!validate({
-            input, validator
-          })) {
+          if (!validate({ input, validator })) {
             errors++
           }
         }
