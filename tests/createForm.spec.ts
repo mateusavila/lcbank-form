@@ -22,6 +22,15 @@ describe('createForm', () => {
       value: { href: 'https://www.google.com.br' },
       writable: true
     })
+    global.fetch = vi.fn(() => 
+    Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({ 
+        success: true,
+        message: "Mocked response" 
+      }),
+    } as Response)
+  );
   })
 
   it('should show more than 1 form in the page', () => {
@@ -331,7 +340,6 @@ describe('createForm', () => {
 
     submitButton.click()
 
-
     expect(phoneInput?.classList.contains('success')).toBe(true)
     expect(emailInput?.classList.contains('success')).toBe(true)
     expect(nameInput?.classList.contains('success')).toBe(true)
@@ -342,8 +350,7 @@ describe('createForm', () => {
   it('should use default labels when no custom labels are provided', () => {
     document.body.innerHTML = `
       <div data-form-lcbank-apply data-page-title="Página do Desenvolvedor"
-      data-website="LCbank"></div>
-    `
+      data-website="LCbank"></div>`
     createForm()
 
     expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Completo')
@@ -362,8 +369,7 @@ describe('createForm', () => {
         data-helper-cpf="Põe teu CPF"
         data-website="LCbank"
         data-label-email="E-mail Personalizado">
-      </div>
-    `
+      </div>`
     createForm()
 
     expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Personalizado')
@@ -380,8 +386,7 @@ describe('createForm', () => {
         data-page-title="Página do Desenvolvedor"
         data-label-name="Nome Personalizado"
         data-label-cpf="CPF Personalizado">
-      </div>
-    `
+      </div>`
     createForm()
 
     expect(document.querySelector('#form-lcbank-label-name')?.textContent).toContain('Nome Personalizado')

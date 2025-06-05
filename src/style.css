@@ -238,7 +238,9 @@
   .form-lcbank-result-text {
     color: var(--form-lcbank-result-p-color) !important;
     font-weight: 500 !important;
+    line-height: 1.5 !important;
     font-size: clamp(1rem, 0.7515rem + 1.1696vw, 1.5rem) !important;
+    margin-top: 20px;
   }
 }
 .form-lcbank-loading, .form-lcbank-result, .form-lcbank-image-box, .form-lcbank-close, .form-lcbank-modal-block, .form-lcbank-master {
