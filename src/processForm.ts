@@ -4,7 +4,8 @@ import { resultBox } from "./resultBox"
 // development link
 // https://wp.mateusavila.com.br/tack/wp-json/api/contact-form
 export const processForm = async (fields: Record<string, string>, goTo: string, form: HTMLFormElement) => {
-  const { start, title, text, end } = resultBox(form.querySelector('[data-result]')!)
+  const parentForm = form.parentElement!
+  const { start, title, text, end } = resultBox(parentForm.querySelector('[data-result]')!)
   await fetch('https://lcbform.com.br/wp-json/api/contact-form', {
     method: 'POST',
     body: JSON.stringify(fields),

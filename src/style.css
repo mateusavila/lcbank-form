@@ -104,8 +104,8 @@
 
   /* result */
   --form-lcbank-result-background-color: #fff !important;
-  --form-lcbank-result-h2-color: #ba055d !important;
-  --form-lcbank-result-p-color: #ba055d !important;
+  --form-lcbank-result-h2-color: #222222 !important;
+  --form-lcbank-result-p-color: #222222 !important;
 
   /* images */
   --form-lcbank-image-success: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjIgMTEuMDhWMTJDMjEuOTk4OCAxNC4xNTY0IDIxLjMwMDUgMTYuMjU0NyAyMC4wMDkzIDE3Ljk4MThDMTguNzE4MiAxOS43MDkgMTYuOTAzMyAyMC45NzI1IDE0LjgzNTQgMjEuNTgzOUMxMi43Njc0IDIyLjE5NTMgMTAuNTU3MyAyMi4xMjE5IDguNTM0NDcgMjEuMzc0NkM2LjUxMTY4IDIwLjYyNzMgNC43ODQ2NSAxOS4yNDYxIDMuNjEwOTYgMTcuNDM3MUMyLjQzNzI3IDE1LjYyOCAxLjg3OTc5IDEzLjQ4ODEgMi4wMjE2OCAxMS4zMzYzQzIuMTYzNTYgOS4xODQ1NiAyLjk5NzIxIDcuMTM2MzIgNC4zOTgyOCA1LjQ5NzA3QzUuNzk5MzUgMy44NTc4MiA3LjY5Mjc5IDIuNzE1MzggOS43OTYxOSAyLjI0MDE0QzExLjg5OTYgMS43NjQ5MSAxNC4xMDAzIDEuOTgyMzMgMTYuMDcgMi44Nk0yMiA0TDEyIDE0LjAxTDkuMDAwMDEgMTEuMDEiIHN0cm9rZT0iIzEwODQ1NCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=');
@@ -233,9 +233,12 @@
   }
   .form-lcbank-result-title {
     color: var(--form-lcbank-result-h2-color) !important;
+    font-size: clamp(1.5rem, 1.0651rem + 2.0468vw, 2.375rem) !important;
   }
   .form-lcbank-result-text {
     color: var(--form-lcbank-result-p-color) !important;
+    font-weight: 500 !important;
+    font-size: clamp(1rem, 0.7515rem + 1.1696vw, 1.5rem) !important;
   }
 }
 .form-lcbank-loading, .form-lcbank-result, .form-lcbank-image-box, .form-lcbank-close, .form-lcbank-modal-block, .form-lcbank-master {
@@ -410,6 +413,16 @@
 }
 .form-lcbank-modal-partial.active {
   transform: translateX(0) !important;
+}
+.form-result-close {
+  font-size: 14px !important;
+  text-align: center !important;
+  font-weight: normal !important;
+  color: #000 !important;
+  text-decoration: none !important;
+  &:hover {
+    text-decoration: underline !important;
+  }
 }
 .form-lcbank-modal-partial-content {
   padding: 30px 60px !important;

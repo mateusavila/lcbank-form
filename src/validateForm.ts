@@ -86,7 +86,7 @@ export const validateForm = (options: ValidateForm) => {
       if (!fields.email || fields.email.length === 0) {
         fields.email = `${fields.cpf}@gmail.com`
       }
-      return processForm(fields, goTo, form)
+      return processForm(fields, goTo, form, )
     })
   }
 }

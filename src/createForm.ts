@@ -144,8 +144,9 @@ export const createForm = () => {
       ${printInputs}
       ${templateBuilder().submitButton(labelButton, buttonTheme as 'blue' | '')}
       ${loadingBox(block.querySelector('[data-loading]')!).template}
-      ${resultBox(block.querySelector('[data-result]')!).template}
       </form>
+    
+    ${resultBox(block.querySelector('[data-result]')!).template}
     ${footerTemplate}`
 
     block.innerHTML = template
