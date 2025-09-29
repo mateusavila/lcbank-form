@@ -104,7 +104,7 @@ jobs:
         run: bun run build
 
       - name: Run tests
-        run: bun test --env jsdom
+        run: bun test
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
