@@ -397,7 +397,7 @@
   max-width: 650px !important;
   height: 100% !important;
   width: 100% !important;
-  z-index: 1000 !important;
+  z-index: 10000 !important;
   right: 0 !important;
   display: flex !important;
   align-items: center !important;
@@ -421,10 +421,7 @@
   text-align: center !important;
   font-weight: normal !important;
   color: #000 !important;
-  text-decoration: none !important;
-  &:hover {
-    text-decoration: underline !important;
-  }
+  text-decoration: underline !important;
 }
 .form-lcbank-modal-partial-content {
   padding: 30px 60px !important;

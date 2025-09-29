@@ -6,6 +6,7 @@ export function modalBox(): void {
   const backDrop = document.querySelector('[data-backdrop]')!
   const closeButton = document.getElementById('form-lcbank-close') ?? null
   const callToActions = document.querySelectorAll('[data-call-to-action]')
+  const closeResultLink = document.querySelectorAll('[data-close-modal]')
 
   const closeAction = (event: Event) => {
     event.preventDefault()
@@ -26,6 +27,9 @@ export function modalBox(): void {
   }
   if (closeButton) {
     closeButton.addEventListener('click', closeAction)
+  }
+  if (closeResultLink) {
+    closeResultLink.forEach((item) => item.addEventListener('click', closeAction));
   }
   if (backDrop) {
     backDrop.addEventListener('click', closeAction)

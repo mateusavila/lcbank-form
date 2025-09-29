@@ -57,6 +57,7 @@ export const createForm = () => {
 
     const hidePlaceholder = data.hidePlaceholder === 'true'
     const goTo = data.goTo ?? '/obrigado'
+    const goToMobile = data.goToMobile
     const hasEmail = data.hasEmail === 'true'
     const requiredEmail = data.requiredEmail !== 'false'
 
@@ -203,6 +204,7 @@ export const createForm = () => {
     // validar o formulário
     const optionsValidateForm: ValidateForm = {
       goTo,
+      goToMobile,
       hasEmail,
       requiredEmail,
       form
