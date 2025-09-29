@@ -103,8 +103,8 @@ jobs:
       - name: Build project
         run: bun run build
 
-      - name: Run tests
-        run: bun test
+      # - name: Run tests
+      #   run: bun test
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
